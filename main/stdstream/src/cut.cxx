@@ -3,7 +3,7 @@
 using namespace ::libany::stdstream;
 
 
-int ICutStream::read(void* p, int len)
+int CutStream::read(char* p, int len)
 {
 	/* don't try to read beyond the
 	 * cut limit */
@@ -19,7 +19,7 @@ int ICutStream::read(void* p, int len)
 	return b;
 }
 
-bool ICutStream::eos()
+bool CutStream::eos()
 {
 	if(_count >= _max) {
 		return true;

@@ -5,15 +5,19 @@
 
 using namespace ::libany::bxtp;
 
-IDocument::~IDocument()
+Document::~Document()
 try
 {
+	if(_wdepth > 0) {
+		_bxtp.reset();
+	}
+
 	match_end();
 }
 catch(...) {
 }
 
-IDocument::IDocument(IDocument& o)
+Document::Document(Document& o)
 	: _depth(1), _end(false), _bxtp(o._bxtp), _parent(&o)
 {
 	char* p;
@@ -26,14 +30,14 @@ IDocument::IDocument(IDocument& o)
 	}
 }
 
-void IDocument::path_cat()
+void Document::path_cat()
 {
 	strcat(_path, "/");
 	strcat(_path, _bxtp.tag());
 	_depth++;
 }
 
-void IDocument::path_cut()
+void Document::path_cut()
 {
 	char* p = strrchr(_path, '/');
 	if(p) {
@@ -43,7 +47,7 @@ void IDocument::path_cut()
 	_depth--;
 }
 
-void IDocument::reset()
+void Document::reset()
 {
 	/* we finish the stream
 	 * and also reset the parent
@@ -58,7 +62,7 @@ void IDocument::reset()
 	}
 }
 
-bool IDocument::next_token(int* tk)
+bool Document::next_token(int* tk)
 {
 	if(_end) {
 		return false;
@@ -96,14 +100,14 @@ bool IDocument::next_token(int* tk)
 	return true;
 }
 
-void IDocument::match_end()
+void Document::match_end()
 {
 	while(next_token(&_tk)) {
 	}
 }
 
 bool 
-IDocument::match(MatchList* mlist, int* list, int* idx, bool throw_exception)
+Document::match(MatchList* mlist, int* list, int* idx, bool throw_exception)
 {
 	MatchList* cur;
 	while(match_next()) {
@@ -132,7 +136,7 @@ IDocument::match(MatchList* mlist, int* list, int* idx, bool throw_exception)
 	return false;
 }
 
-bool IDocument::match(const char** paths, int* idx, bool throw_exception)
+bool Document::match(const char** paths, int* idx, bool throw_exception)
 try
 {
 	while(match_next()) {
@@ -159,7 +163,7 @@ catch(...) {
 	throw;
 }
 
-bool IDocument::match(const char* path, bool throw_exception)
+bool Document::match(const char* path, bool throw_exception)
 {
 	while(match_next()) {
 		if(strcmp(_path, path)==0) {
@@ -181,7 +185,7 @@ bool IDocument::match(const char* path, bool throw_exception)
  * - skip DATA tokens
  * - fix the matching of END tags
  *   */
-bool IDocument::match_next()
+bool Document::match_next()
 try
 {
 	return next_token(&_tk);
@@ -190,7 +194,7 @@ catch(...) {
 	throw;
 }
 
-void IDocument::gotodata()
+void Document::gotodata()
 {
 	/* if we didn't get to the data yet,
 	 * go to there */
@@ -199,13 +203,13 @@ void IDocument::gotodata()
 	}
 }
 
-bool IDocument::eos()
+bool Document::eos()
 {
 	gotodata();
 	return _bxtp.eos();
 }
 
-int IDocument::read(void* p, int s)
+int Document::read(void* p, int s)
 {
 	gotodata();
 	return _bxtp.read(p, s);

@@ -3,7 +3,6 @@
 #include <libany/stfactory/uristream.h>
 #include <stdio.h>
 #include "transaction.h"
-#include "atomic.h"
 #include "client.h"
 #include "db.h"
 

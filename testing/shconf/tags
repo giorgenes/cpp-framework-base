@@ -1,0 +1,33 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.5.4	//
+__shconf_h	shconf.h	2;"	d
+g_quit	main.c	/^static int g_quit   = 0;$/;"	v	file:
+g_upconf	main.c	/^static int g_upconf = 0;$/;"	v	file:
+get_conf_size	shconf.h	/^	int (*get_conf_size)(void*);$/;"	m
+get_size	main.c	/^static int get_size(void* data)$/;"	f	file:
+handle_signal	main.c	/^static void handle_signal(int sig)$/;"	f	file:
+initialize	main.c	/^static int initialize(void* data, char* buf, int size)$/;"	f	file:
+initialize	shconf.h	/^	int (*initialize)(void*, char*, int);$/;"	m
+key	shconf.c	/^	int key;$/;"	m	struct:shconfmgr	file:
+main	main.c	/^int main()$/;"	f
+sem_post	shconf.c	/^static void sem_post(shconfmgr_t* self, int flags)$/;"	f	file:
+sem_wait	shconf.c	/^static void sem_wait(shconfmgr_t* self)$/;"	f	file:
+semid	shconf.c	/^	int semid;$/;"	m	struct:shconfmgr	file:
+shared	shconf.c	/^	shmgr_shared_t* shared;$/;"	m	struct:shconfmgr	file:
+shconfmgr	shconf.c	/^struct shconfmgr {$/;"	s	file:
+shconfmgr_connect	shconf.c	/^void shconfmgr_connect(shconfmgr_t* self, int key)$/;"	f
+shconfmgr_delete	shconf.c	/^void shconfmgr_delete(shconfmgr_t* self)$/;"	f
+shconfmgr_getconf	shconf.c	/^shconfmgr_getconf($/;"	f
+shconfmgr_has_new_conf	shconf.c	/^int shconfmgr_has_new_conf(shconfmgr_t* self, int shmid)$/;"	f
+shconfmgr_new	shconf.c	/^shconfmgr_t* shconfmgr_new(void)$/;"	f
+shconfmgr_release	shconf.c	/^void shconfmgr_release(shconfmgr_t* self, int shmid)$/;"	f
+shconfmgr_t	shconf.h	/^typedef struct shconfmgr shconfmgr_t;$/;"	t
+shconfmgr_userhandler_t	shconf.h	/^}shconfmgr_userhandler_t;$/;"	t
+shmgr_shared_t	shconf.c	/^}shmgr_shared_t;$/;"	t	file:
+shmid	shconf.c	/^	int shmid;$/;"	m	file:
+shmid	shconf.c	/^	int shmid;$/;"	m	struct:shconfmgr	file:
+userdata	shconf.h	/^	void* userdata;$/;"	m

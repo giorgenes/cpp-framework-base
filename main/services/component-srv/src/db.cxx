@@ -13,7 +13,7 @@ void impl::DB::commit()
 
 void impl::DB::read_config(const char* path)
 {
-	::libany::stdstream::IFileStream file(path);
+	::libany::stdstream::IOFileStream file(path, "r");
 	::libany::iniparser::Parser parser(file);
 
 	char s[1024];

@@ -2,7 +2,7 @@
 
 using namespace ::libany::stdstream;
 
-int IONullStream::read(void* p, int s)
+int IONullStream::read(char* p, int s)
 {
 	p = p;
 	s = s;
@@ -14,7 +14,7 @@ bool IONullStream::eos()
 	return true;
 }
 
-int IONullStream::write(const void*p , int s)
+int IONullStream::write(const char*p , int s)
 {
 	p = p;
 	s = s;

@@ -1,8 +1,0 @@
-<config>
-	<services>
-		<service>
-			<name>user</name>
-			<address>tcp://localhost:12121</address>
-		</service>
-	</services>
-</config>

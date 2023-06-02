@@ -1,0 +1,3 @@
+create foo test default
+check foo test default
+check bar test default

@@ -6,7 +6,7 @@
 
 namespace libany {
 	namespace netstream {
-		class FDStream : public ::libany::stream::IOStream {
+		class FDStream : public ::libany::stream::Stream {
 			private:
 				::libany::io::FD fd;
 			public:

@@ -37,7 +37,7 @@ void Component::create()
 }
 
 static void 
-create_file(const char* path, ::libany::stream::IStream& content)
+create_file(const char* path, ::libany::stream::Stream& content)
 {
 	char dir[1024];
 	const char* p = strrchr(path, '/');
@@ -112,7 +112,7 @@ Component::checkout(
 }
 
 static void
-send_file(const char* path, FileInfo& info, ::libany::stream::OStream& o)
+send_file(const char* path, FileInfo& info, ::libany::stream::Stream& o)
 {
 	char buf[2048];
 	sprintf(buf, "%s/%s", path, info.path);

@@ -5,59 +5,154 @@
 #include <stdlib.h>
 #include <stdexcept>
 
-using namespace ::libany::rcpp;
+namespace impl = ::libany::rcpp;
 
-Transaction::~Transaction()
+void impl::Transaction::begin()
 {
 }
 
-Client::~Client()
+void impl::Transaction::begin_exec(const char*, const char*)
 {
 }
 
-void Service::handle_client(::libany::stream::IOStream* p_clistm)
+void impl::Transaction::key(::libany::bxtp::Document&)
 {
-	ServerSession session(p_clistm);
-	PostL1 pcmd(&session);
+}
+
+void impl::Transaction::data(::libany::bxtp::Document&)
+{
+}
+
+void impl::Transaction::exec(::libany::bxtp::Document&)
+{
+}
+
+void impl::Transaction::nexec(::libany::bxtp::Document&)
+{
+}
+
+
+impl::ClientHandler::~ClientHandler()
+{
+}
+
+impl::Service::~Service()
+{
+}
+
+void 
+impl::Service::create_trans(impl::ClientHandler* cli, impl::Transaction*& trn)
+{
+	if(!trn) {
+		trn = cli->new_transaction();
+		trn->begin();
+	}
+}
+
+void impl::Service::exec(
+		impl::Transaction* trans, ::libany::bxtp::Document& doc, bool atomic)
+{
+	try {
+		doc.match("/request/service");
+		char service[1024];
+		int len = doc.read(service, sizeof(service)-1);
+		service[len] = 0;
 		
-	char cmd;
-	Client* cli = new_client();
+		doc.match("/request/base");
+		char base[1024];
+		len = doc.read(base, sizeof(base)-1);
+		base[len] = 0;
+
+		trans->begin_exec(service, base);
+		
+		doc.match("/request/key");
+		{
+			::libany::bxtp::Document idoc(doc);
+			trans->key(idoc);
+		}
+		
+		doc.match("/request/data");
+		{
+			::libany::bxtp::Document idoc(doc);
+			trans->data(idoc);
+		}
+
+		doc.match_end();
+
+		if(atomic) {
+			trans->nexec(doc);
+		} else {
+			trans->exec(doc);
+		}
+	}
+	catch(...) {
+		throw;
+	}
+}
+
+void impl::Service::handle_client(::libany::stream::Stream* p_clistm)
+{
+	ClientHandler *cli = new_client();
 	if(cli == 0) {
 		throw std::runtime_error("could not allocate client");
 	}
-	cli->begin();
-	
-	char buf[1024];
-	int len;
-	while(1) {
-		pcmd.recv(&cmd);
-		fprintf(stderr, "%c recebido\n", cmd);
-		while(pcmd.next_group()) {
-			fprintf(stderr, "tenho um grupo\n");
-			while(pcmd.next_field()) {
-				fprintf(stderr, "tenho um campo\n");
-				while(!pcmd.eos()) {
-					fprintf(stderr, "tenho dados\n");
-					len = pcmd.read(buf, sizeof(buf));
-					buf[len] = 0;
-					fprintf(stderr, "buf: %s\n", buf);
+	Transaction *trans = 0;
+	::libany::bxtp::BxtpStream sax(*p_clistm);
+	bool hasdoc;
+	bool began = false;
+	do {
+		try {
+			::libany::bxtp::Document doc(sax);
+			if((hasdoc = doc.match("/request"))) {
+				const char * opts[] = {
+					"/request/nquery", 
+					"/request/query", 
+					"/request/commit", 
+					"/request/rollback", 
+					0
+				};
+
+				int opt;
+				if(!doc.match(opts, &opt)) {
+					throw std::runtime_error("invalid request");
 				}
+
+				create_trans(cli, trans);
+
+				doc.begin("response"); began = true;
+				try {
+					switch(opt) {
+						case 0:
+							exec(trans, doc, true);
+							break;
+						case 1:
+							exec(trans, doc, false);
+							break;
+						case 2:
+							trans->commit();
+							break;
+						case 3:
+							trans->rollback();
+							break;
+					}
+					doc.match_end();
+				}
+				catch(std::exception& e) {
+					doc.write_tag("exception", e.what());
+					fprintf(stderr, "server: exception: %s\n", e.what());
+				}
+				doc.end();
 			}
 		}
-		fprintf(stderr, "acabaram-se os grupos\n");
-		switch(cmd) {
-			case 'q':
-				break;
-			case 'Q':
-				break;
-			case 'C':
-				break;
-			case 'R':
-				break;
+		catch(std::exception& e) {
+			fprintf(stderr, "server: exception: %s\n", e.what());
 		}
-	}
+	}while(hasdoc);
 	
-	cli->end();
+	if(trans) {
+		delete trans;
+	}
+	//_cli->end();
 	delete cli;
 }
 

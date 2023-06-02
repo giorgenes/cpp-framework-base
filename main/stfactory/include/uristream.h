@@ -5,9 +5,9 @@
 
 namespace libany {
 	namespace stfactory {
-		class URIStream : public ::libany::stream::IOStream {
+		class URIStream : public ::libany::stream::Stream {
 			private:
-				::libany::stream::IOStream* _stream;
+				::libany::stream::Stream* _stream;
 			public:
 				URIStream(const char*);
 				virtual bool eos();

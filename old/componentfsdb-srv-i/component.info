@@ -1,0 +1,2 @@
+NAME=componentfsdbsrvi
+REQUIRE="stdsrvi componentfsdbsrv netstream"

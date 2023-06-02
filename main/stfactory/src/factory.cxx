@@ -1,12 +1,13 @@
 #include <libany/stfactory/stfactory.h>
 #include <libany/netstream/tcp.h>
+#include <libany/stdstream/pipe.h>
 #include <string.h>
 #include <stdexcept>
 #include <memory>
 
 using namespace ::libany::stfactory;
 
-::libany::stream::IOStream* StreamFactory::build(const char* uri)
+::libany::stream::Stream* StreamFactory::build(const char* uri)
 {
 	char addr[1024];
 	if(strncmp(uri, "tcp://", 6)==0) {
@@ -20,10 +21,10 @@ using namespace ::libany::stfactory;
 		*p++ = 0;
 		int port = atoi(p);
 
-		::libany::netstream::TCPClientIOStream* st = 0;
+		::libany::netstream::TCPClientStream* st = 0;
 
 		try {
-			st = new ::libany::netstream::TCPClientIOStream();
+			st = new ::libany::netstream::TCPClientStream();
 			st->connect(addr, port);
 		}
 		catch(...) {
@@ -33,6 +34,19 @@ using namespace ::libany::stfactory;
 			}
 			throw;
 		}
+		return st;
+	}
+	if(strncmp(uri, "pipe://", 7)==0) {
+		uri += 7;
+		
+		::libany::stdstream::IOPipeStream* st = 0;
+		try {
+			st = new ::libany::stdstream::IOPipeStream(uri);
+		}
+		catch(...) {
+			throw;
+		}
+
 		return st;
 	}
 	return 0;

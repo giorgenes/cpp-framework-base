@@ -1,0 +1,19 @@
+2006-03-02:
+
+- colocar um sistema de plugins no serviço de components,
+possibilitando processar os fontes comitados.
+Exemplo: procurar por "TODO" e "FIXME" no codigo
+e manter um registro disso para acesso.
+
+
+2006-04-11:
+
+- criar um sistema de gerenciamento dos servicos,
+permitindo deslocalos para outras maquinas, remapear
+as maquinas x servicoes x chaves, etc.
+Com uma interface grafica.
+
+- criar um servico de redundancia, que ao receber
+uma requisicao, divide a mesma para mais de um servidor,
+adicionando redundancia no servico.
+

@@ -10,14 +10,15 @@ namespace libany {
 			MatchList* next;
 		};
 		
-		class IDocument : public virtual ::libany::stream::IStream {
+		class Document : public virtual ::libany::stream::Stream {
 			private:
 				int _tk;
 				char _path[2048];
 				int _depth;
 				bool _end;
-				::libany::bxtp::BxtpIStream& _bxtp;
-				IDocument* _parent;
+				::libany::bxtp::BxtpStream& _bxtp;
+				Document* _parent;
+				int _wdepth;
 
 				void gotodata();
 				bool next_token(int*);
@@ -38,52 +39,24 @@ namespace libany {
 				virtual bool eos();
 				virtual int read(void*, int);
 
-				IDocument(::libany::bxtp::BxtpIStream &st) 
-					: _depth(0), _end(false), _bxtp(st), _parent(0)
+				Document(::libany::bxtp::BxtpStream &st) 
+					: _depth(0), _end(false), _bxtp(st), _parent(0), _wdepth(0)
 				{
 					*_path = 0;
 				};
 
-				IDocument(IDocument&);
+				Document(Document&);
 
-				~IDocument();
-		};
+				~Document();
 		
-		class ODocument : public virtual ::libany::stream::OStream {
-			private:
-				int _wdepth;
-				::libany::bxtp::BxtpOStream& _bxtp;
-			public:
 				void write_tag(const char*, const char* val = 0, int len = 0);
 				bool complete_depth(int);
 
 				virtual int write(const void*, int);
 				void begin(const char*);
 				void end();
-
-				ODocument(::libany::bxtp::BxtpOStream& st) : 
-					_wdepth(0),_bxtp(st) {
-				}
-
-				~ODocument();
 		};
 
-		class IODocument : 
-			public IDocument, 
-			public ODocument, 
-			public virtual ::libany::stream::IOStream 
-		{
-			protected:
-			public:
-				IODocument(::libany::bxtp::BxtpIOStream &st) 
-					: IDocument(st), ODocument(st) {};
-
-				virtual bool eos();
-				virtual int read(void*, int);
-				virtual int write(const void*, int);
-
-				virtual ~IODocument();
-		};
 	}
 }
 

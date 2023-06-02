@@ -1,0 +1,21 @@
+#!/bin/bash
+
+function show_content()
+{
+	. $1
+	echo $REQUIRE
+}
+
+if [ $# -gt 0 ]; then
+	show_content $1
+	exit 0
+fi
+
+while [ $PWD != "/" ]; do
+	if [ -e "component.info" ]; then
+		show_content component.info
+		exit 0
+	fi
+	cd ..
+done
+

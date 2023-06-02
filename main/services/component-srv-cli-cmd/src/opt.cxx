@@ -91,7 +91,7 @@ void OptParser::parse(int argc,  char** argv)
 void OptParser::read_config(const char* path)
 {
 	try {
-		::libany::stdstream::IFileStream file(path);
+		::libany::stdstream::IOFileStream file(path);
 		::libany::iniparser::Parser parser(file);
 
 		char s[1024];

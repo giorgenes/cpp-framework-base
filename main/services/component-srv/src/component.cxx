@@ -118,11 +118,11 @@ FILE* Component::open_lst_file(const char* rev, const char* mode)
 
 void 
 Component::send_file(
-		::libany::stream::IStream& in,
+		::libany::stream::Stream& in,
 		const char* id,
 		const char* path,
 		const char* rev, 
-		::libany::bxtp::ODocument& doc)
+		::libany::bxtp::Document& doc)
 {
 	doc.write_tag("id", id);
 	doc.write_tag("path", path);
@@ -137,7 +137,7 @@ Component::send_file(
 }
 
 void 
-Component::send_files(const char* rev, ::libany::bxtp::ODocument& doc)
+Component::send_files(const char* rev, ::libany::bxtp::Document& doc)
 {
 	/* the first revision has no files */
 	if(strcmp(rev, "0")==0) {
@@ -226,7 +226,7 @@ Component::commit(
 }
 
 void 
-Component::send_childs(const char* rev, ::libany::bxtp::ODocument& doc)
+Component::send_childs(const char* rev, ::libany::bxtp::Document& doc)
 {
 	try {
 		FILE* fp = open_childs_file(rev, "r");
@@ -248,7 +248,7 @@ Component::send_childs(const char* rev, ::libany::bxtp::ODocument& doc)
 }
 
 void 
-Component::send_revisions(::libany::bxtp::ODocument& doc)
+Component::send_revisions(::libany::bxtp::Document& doc)
 {
 	FILE* fp = open_revisions_file("r");
 	char buf[1024];

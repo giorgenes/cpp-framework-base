@@ -20,14 +20,8 @@ void pqsrv::Transaction::begin()
 	_db->begin_transaction();
 }
 
-pqsrv::Transaction::~Transaction()
+void pqsrv::Transaction::exec(::libany::bxtp::Document& doc)
 {
-}
-
-void pqsrv::Transaction::exec(::libany::bxtp::ODocument& doc)
-{
-	BTransaction::exec(doc);
-
 	int len;
 	char buf[1024];
 	PGresult *res;
@@ -69,20 +63,5 @@ void pqsrv::Transaction::exec(::libany::bxtp::ODocument& doc)
 	doc.end();
 	
 	PQclear(res);
-}
-
-void pqsrv::Transaction::key(::libany::bxtp::IDocument& doc)
-{
-	BTransaction::key(doc);
-}
-
-void pqsrv::Transaction::data(::libany::bxtp::IDocument& doc)
-{
-	BTransaction::data(doc);
-}
-
-void pqsrv::Transaction::begin_exec(const char* service, const char* base)
-{
-	BTransaction::begin_exec(service, base);
 }
 

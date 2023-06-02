@@ -4,17 +4,13 @@
 
 using namespace ::libany::bxtp;
 
-BxtpOStream::~BxtpOStream()
-{
-}
-
-void BxtpOStream::reset()
+void BxtpStream::reset()
 {
 	char buf[2] = "R";
 	_ou.write(buf, 2);
 }
 
-int BxtpOStream::write(const void* ptr, int s)
+int BxtpStream::write(const void* ptr, int s)
 {
 	int t;
 	char buf[2] = "D";
@@ -33,7 +29,7 @@ int BxtpOStream::write(const void* ptr, int s)
 }
 
 
-void BxtpOStream::begin(const char* tag)
+void BxtpStream::begin(const char* tag)
 {
 	unsigned int len = strlen(tag);
 	if(len > 256) {
@@ -50,7 +46,7 @@ void BxtpOStream::begin(const char* tag)
 	}
 }
 
-void BxtpOStream::end()
+void BxtpStream::end()
 {
 	char buf[2] = "T";
 

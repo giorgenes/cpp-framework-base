@@ -1,0 +1,11 @@
+#!/bin/bash
+
+while [ $PWD != "/" ]; do
+	if [ -e "TOPDIR" ]; then
+		pwd
+		exit 0
+	fi
+	cd ..
+done
+
+echo .

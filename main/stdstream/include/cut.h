@@ -6,18 +6,18 @@
 
 namespace libany {
 	namespace stdstream {
-		class ICutStream : public ::libany::stream::IStream {
+		class CutStream : public virtual ::libany::stream::Stream {
 			private:
-				::libany::stream::IStream &_st;
+				::libany::stream::Stream &_st;
 				unsigned int _max;
 				unsigned int _count;
 			public:
-				ICutStream(::libany::stream::IStream &st, int max)
+				CutStream(::libany::stream::Stream &st, int max)
 					: _st(st), _max(max), _count(0)
 				{
 				};
 				
-				ICutStream(::libany::stream::IStream &st)
+				CutStream(::libany::stream::Stream &st)
 					: _st(st), _max(0), _count(0)
 				{
 				};
@@ -26,7 +26,7 @@ namespace libany {
 					_max = max;
 				};
 
-				int read(void*, int);
+				int read(char*, int);
 				bool eos();
 		};
 	}

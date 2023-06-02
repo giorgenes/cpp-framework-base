@@ -8,14 +8,20 @@
 #include <libany/dbsrv/transaction.h>
 
 namespace postgresrv_impl {
-	class BTransaction : public ::libany::dbsrv::BTransaction {
+	class Transaction : public ::libany::dbsrv::Transaction {
 		protected:
 			PostgreDB* _db;
 		public:
-			BTransaction(PostgreDB*);
-			virtual ~BTransaction();
+			Transaction(PostgreDB*);
+			virtual ~Transaction();
 
-			virtual void data(::libany::bxtp::IDocument& doc);
+			virtual void data(::libany::bxtp::Document& doc);
+			virtual void commit();
+			virtual void rollback();
+			virtual void begin();
+			virtual void exec(::libany::bxtp::Document&);
+			virtual void key(::libany::bxtp::Document&);
+			virtual void begin_exec(const char*, const char*);
 	};
 
 }

@@ -23,7 +23,7 @@ class ComponentDB {
 			strcpy(base, _base);
 		};
 
-		void write_components(::libany::bxtp::ODocument&);
+		void write_components(::libany::bxtp::Document&);
 
 		inline ::libany::rcpp::RcppStream& stream() {
 			return *_db->_rcpp;

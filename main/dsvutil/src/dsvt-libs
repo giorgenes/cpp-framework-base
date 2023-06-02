@@ -1,28 +1,39 @@
 #!/bin/bash
 
-while [ $PWD != "/" ]; do
-	if [ -e "topdir.inc" ]; then
-		TOPDIR=`cat topdir.inc`
-		printf "%s%s %s%s " '-Wl,-rpath,' $TOPDIR/lib '-L' $TOPDIR/lib
+function print_require()
+{
+	. component.info
+	if [ "$REQUIRE" != "" ]; then
+		for name in $REQUIRE; do
+			unset FLAGS
+			infofile=`dsvt-get-info-by-name $name`
+			if [ "$infofile" == "" ]; then
+				continue
+			fi
+			. $infofile
 
-		. component.info
-		if [ "$REQUIRE" != "" ]; then
-			for name in $REQUIRE; do
-				unset FLAGS
-				infofile=`dsvt-get-info-by-name $name`
-				if [ "$infofile" == "" ]; then
-					continue
-				fi
-				. $infofile
-
-				if [ "$FLAGS" == "so" ]; then
-					printf "%s%s " '-l' any$name
-				fi
-			done
-		fi
-		
-		exit 0
+			if [ "$FLAGS" == "so" ]; then
+				printf "%s%s " '-l' any$name
+			fi
+		done
 	fi
-	cd ..
-done
+
+}
+
+function print_cmdlibs()
+{
+	while [ $# -gt 0 ]; do
+		printf "%sany%s " '-l' $1
+		shift 1
+	done
+}
+
+TOPDIR=`dsvt-topdir`
+printf "%s%s %s%s " '-Wl,-rpath,' $TOPDIR/lib '-L' $TOPDIR/lib
+
+if [ $# -gt 0 ]; then
+	print_cmdlibs $*
+else
+	print_require
+fi
 

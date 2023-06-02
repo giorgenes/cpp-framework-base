@@ -2,7 +2,7 @@
 
 using namespace ::libany::stdstream;
 
-int IOEnableStream::read(void* p, int s)
+int IOEnableStream::read(char* p, int s)
 {
 	if(_enabled) {
 		return _st.read(p, s);
@@ -18,7 +18,7 @@ bool IOEnableStream::eos()
 	return true;
 }
 
-int IOEnableStream::write(const void*p , int s)
+int IOEnableStream::write(const char*p , int s)
 {
 	if(_enabled) {
 		return _st.write(p, s);
@@ -26,18 +26,4 @@ int IOEnableStream::write(const void*p , int s)
 	return 0;
 }
 
-int IEnableStream::read(void* p, int s)
-{
-	if(_enabled) {
-		return _st.read(p, s);
-	}
-	return 0;
-}
 
-bool IEnableStream::eos()
-{
-	if(_enabled) {
-		return _st.eos();
-	}
-	return true;
-}

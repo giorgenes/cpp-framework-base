@@ -23,21 +23,31 @@
 
 namespace libany {
 	namespace componentfsdbsrv {
-		class BTransaction : public virtual ::libany::dbsrv::BTransaction {
+		class Transaction : public virtual ::libany::dbsrv::Transaction {
 			private:
 			protected:
 				char _tmppath[1024];
 				char _tmppath_filelist[1024];
 				DB* _db;
 			public:
-				virtual void data(::libany::bxtp::IDocument&);
-
-				BTransaction(DB* db)
+				Transaction(DB* db)
 					: _db(db) {}
 
-				virtual ~BTransaction();
+				virtual ~Transaction();
 				static bool check_param(
 						const char* name, const char* check, int n, int desired);
+
+				virtual void commit();
+				virtual void rollback();
+				virtual void begin();
+
+				virtual void exec(::libany::bxtp::Document&);
+				virtual void nexec(::libany::bxtp::Document&);
+				virtual void key(::libany::bxtp::Document&);
+				virtual void data(::libany::bxtp::Document&);
+
+				virtual void begin_exec(const char*, const char*);
+
 
 		};
 	}

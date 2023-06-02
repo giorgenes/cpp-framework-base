@@ -25,10 +25,10 @@ namespace libany {
 						const char*, 
 						const char*, 
 						const char*, 
-						::libany::bxtp::ODocument&);
+						::libany::bxtp::Document&);
 				void send_childs(
 						const char*, 
-						::libany::bxtp::ODocument&);
+						::libany::bxtp::Document&);
 			public:
 				char name[128];
 
@@ -36,11 +36,11 @@ namespace libany {
 				void create();
 				void commit(char*, int, const char*, const char*);
 
-				void send_files(const char*, ::libany::bxtp::ODocument&);
-				void send_revisions(::libany::bxtp::ODocument&);
+				void send_files(const char*, ::libany::bxtp::Document&);
+				void send_revisions(::libany::bxtp::Document&);
 				void add_revision(const char*);
 				void write_next_revision(const char*, int);
-				void write_components(::libany::bxtp::ODocument& doc);
+				void write_components(::libany::bxtp::Document& doc);
 
 				Component(DB* db, const char* n)
 					: __db(db) {

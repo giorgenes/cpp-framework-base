@@ -1,0 +1,20 @@
+#!/bin/bash
+
+top=$(dsvt-topdir)
+prog=$(basename $0)
+
+export PATH=$top/bin:$PATH
+
+find $top -name '*.unit.sh' -perm -u+x | {
+	while read file; do
+		dir=$(dirname $file)
+		cd $dir
+		eval $file || {
+			echo "$prog: error in $file ($?)"
+			exit 1
+		}
+	done
+}
+
+echo "$prog: No errors found (weee!)"
+exit 0

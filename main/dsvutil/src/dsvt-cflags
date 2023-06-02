@@ -1,11 +1,8 @@
 #!/bin/bash
 
-while [ $PWD != "/" ]; do
-	if [ -e "topdir.inc" ]; then
-		echo -I`cat topdir.inc`/include
-		exit 0
-	fi
-	cd ..
-done
-
-echo -I.
+top=$(dsvt-topdir)
+if [ -n "$top" ]; then
+	echo "-I$(dsvt-topdir)/include"
+else
+	echo "-I."
+fi

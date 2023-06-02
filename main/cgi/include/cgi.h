@@ -25,9 +25,9 @@ namespace libany {
 				 * and end. It free's the CGI
 				 * of the need to controll the
 				 * CONTENT_LENGTH var. */
-				::libany::stream::IOStream& io;
+				::libany::stream::Stream& io;
 
-				CGIEnv(::libany::stream::IOStream& _io)
+				CGIEnv(::libany::stream::Stream& _io)
 					: io(_io) {
 				};
 		};
@@ -48,11 +48,13 @@ namespace libany {
 				void complete();
 		};
 		
-		class CGI {
+		class CGIApp {
 			protected:
 			public:
 				virtual void write_header(const CGIEnv&, Header&) = 0;
 				virtual void write_body(const CGIEnv&) = 0;
+
+				virtual ~CGIApp();
 		};
 	}
 }

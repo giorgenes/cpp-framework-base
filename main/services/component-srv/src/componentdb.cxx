@@ -4,7 +4,7 @@
 #include <libany/dbsrvcli/db.h>
 		
 
-void ComponentDB::write_components(::libany::bxtp::ODocument& doc)
+void ComponentDB::write_components(::libany::bxtp::Document& doc)
 {
 	::libany::dbsrvcli::DB db(stream(), "default");
 

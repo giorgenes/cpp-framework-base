@@ -12,7 +12,9 @@ URIStream::URIStream(const char* uri)
 		_stream = f.build(uri);
 
 		if(!_stream) {
-			throw std::runtime_error("could not create stream for URI");
+			char buf[1024];
+			sprintf(buf, "could not create stream for URI '%s'", uri);
+			throw std::runtime_error(buf);
 		}
 	}
 	catch(...) {

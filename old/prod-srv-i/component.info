@@ -1,0 +1,2 @@
+NAME=prodsrvi
+REQUIRE="stdsrvi prodsrv netstream"

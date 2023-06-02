@@ -1,0 +1,10 @@
+digraph TestGraph {
+	node [shape=ellipse fontsize=10 fontname="Courier"        ]; ell_a;
+	"ell_a" [label="Ellipse A"];
+	"ell_a" -> "box_a"  [label="From Ellipse to Box" fontname="Verdana" fontsize=8];
+	
+	node [shape=ellipse fontsize=10 fontname="Courier"        ]; box_a;
+	"box_a" [label="Ellipse B"];
+
+}
+

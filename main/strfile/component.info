@@ -1,0 +1,3 @@
+NAME=strfile
+FLAGS=so
+REQUIRE="stream memory except"

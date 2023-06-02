@@ -4,7 +4,6 @@
 #include "srv.h"
 #include <stdio.h>
 #include "transaction.h"
-#include "atomic.h"
 #include "db.h"
 
 namespace postgresrv_impl {
@@ -13,7 +12,6 @@ namespace postgresrv_impl {
 			PostgreDB* _db;
 		public:
 			virtual ::libany::rcpp::Transaction* new_transaction();
-			virtual ::libany::rcpp::AtomicTransaction* new_atomic_transaction();
 
 			Client(PostgreDB* db) : _db(db) {
 			};

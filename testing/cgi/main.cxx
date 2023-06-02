@@ -1,32 +1,40 @@
 #include <libany/cgi/cgi.h>
 #include <libany/cgi/stdcgi.h>
-#include <libany/stdstream/urlencode.h>
+#include <libany/stdstream/urldecode.h>
 #include <stdio.h>
 
-class MyCGI : public ::libany::cgi::CGI {
+namespace cgi = ::libany::cgi;
+namespace stream {
+	using namespace ::libany::stdstream;
+}
+
+class MyCGI : public cgi::CGIApp {
 	public:
-		void write_header(const ::libany::cgi::CGIEnv&,
-				::libany::cgi::Header&);
-		void write_body(const ::libany::cgi::CGIEnv&);
+		void write_header(const cgi::CGIEnv&, cgi::Header&);
+		void write_body(const cgi::CGIEnv&);
 };
 
 void MyCGI::write_header(
-		const ::libany::cgi::CGIEnv& env, ::libany::cgi::Header& header)
+		const cgi::CGIEnv& env, cgi::Header& header)
 {
 	header.write_content_type("text/plain");
-	header.write_cookie("session", 
-			"test", "trinita.canopus", "/", time(NULL)+1000, false);
+	header.write_cookie(
+			"SID", 
+			"892173ghjkhas01928sdf", 
+			"trinita.canopus", 
+			"/", 
+			time(NULL)+1000, 
+			false);
 	
 	header.write_cookie("colosso", 
 			"test", "trinita.canopus", "/", time(NULL)+1000, false);
-
 }
 
-void MyCGI::write_body(const ::libany::cgi::CGIEnv& env)
+void MyCGI::write_body(const cgi::CGIEnv& env)
 {
 	int len;
 	char buf[1024];
-	::libany::stdstream::IUrlEncodeStream in(env.io);
+	stream::IUrlDecodeStream in(env.io);
 
 	len = sprintf(buf, "query_string: %s\n", env.query_string);
 	env.io.write(buf, len);
@@ -48,15 +56,13 @@ void MyCGI::write_body(const ::libany::cgi::CGIEnv& env)
 	}
 }
 
-
 int main(int argc, char** argv)
 {
 	MyCGI c;
-	::libany::cgi::StdCGI cgi(c);
+	cgi::StdCGI cgi(c);
 
 	cgi.run(argc, argv);
 
 	return 0;
 }
-
 

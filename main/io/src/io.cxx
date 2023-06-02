@@ -114,6 +114,7 @@ FD::my_select(
 			ptv = &tv;
 		}
 	
+#if 0
 		fprintf(stderr, "waiting on [p]select"
 				"(tmout=%ld:%ld) for %s on fd %d [%s:%d]\n",
 				p_tv ? p_tv->tv_sec : -1,
@@ -121,6 +122,7 @@ FD::my_select(
 				p_flags & SELECT_OPT_READ ? "read" : "write",
 				fd,
 				__FILE__, __LINE__);
+#endif
 #ifdef _WIN32
 		iRetSelect = select(fd + 1,
 				pfdsetr, 
@@ -143,6 +145,7 @@ FD::my_select(
 			timeval_subtract(&diff, &end, &begin);
 			timeval_subtract(p_tv, p_tv, &diff);
 		}
+#if 0
 		fprintf(stderr, "[p]select returned %d"
 				"(errno=%d,tmout=%ld:%ld) for %s on fd %d [%s:%d]\n",
 				iRetSelect,
@@ -152,6 +155,7 @@ FD::my_select(
 				p_flags & SELECT_OPT_READ ? "read" : "write",
 				fd,
 				__FILE__, __LINE__);
+#endif
 
 
 		if(iRetSelect != -1) {
@@ -249,7 +253,7 @@ FD::connect(const char* p_host, int p_port, struct timeval* ptv, int* p_error)
 
 	phostent = gethostbyname(p_host);
 	if (phostent == NULL) {
-		close(fd);
+		::close(fd);
 		throw std::runtime_error("could not get hostname");
 	}
 
@@ -261,7 +265,7 @@ FD::connect(const char* p_host, int p_port, struct timeval* ptv, int* p_error)
 	if(::connect(fd, (struct sockaddr*)&addr, sizeof(addr)) != 0)	{
 		if(errno != EINPROGRESS) {
 			*p_error = errno;
-			close(fd);
+			::close(fd);
 			throw std::runtime_error("error connecting to host");
 		}
 	}
@@ -269,7 +273,7 @@ FD::connect(const char* p_host, int p_port, struct timeval* ptv, int* p_error)
 	ierr = my_select(fd, ptv, 1, SELECT_OPT_WRITE, p_error);
 	if(ierr <= 0) {
 		fprintf(stderr, "connect(select) %m\n");
-		close(fd);
+		::close(fd);
 		throw std::runtime_error("error waiting for event");
 	}
 
@@ -277,14 +281,14 @@ FD::connect(const char* p_host, int p_port, struct timeval* ptv, int* p_error)
 	if(getsockopt(fd, SOL_SOCKET, SO_ERROR, &ierr, (socklen_t*)&size) != 0) {
 		*p_error = errno;
 		fprintf(stderr, "getsockopt %m\n");
-		close(fd);
+		::close(fd);
 		throw std::runtime_error("error getting error :)");
 	}
 
 	if(ierr) {
 		*p_error = ierr;
 		errno = ierr;
-		close(fd);
+		::close(fd);
 		throw std::runtime_error("error connecting to host");
 	}
 
@@ -324,8 +328,10 @@ FD::recv(
 		}
 	}
 
+#if 0
 	fprintf(stderr, "recv loop end(b=%d, p_size=%d,errno=%d)\n", b, 
 			p_size, *p_error);
+#endif
 	return b;
 }
 
@@ -364,8 +370,10 @@ FD::read(
 		}
 	}
 
+#if 0
 	fprintf(stderr, "recv loop end(b=%d, p_size=%d,errno=%d)\n", b, 
 			p_size, *p_error);
+#endif
 	return b;
 }
 
@@ -436,12 +444,19 @@ FD::send(
 
 FD::~FD()
 {
-	if(rfd != -1) {
-		close(rfd);
-	}
-	if(rfd != wfd && wfd != -1) {
-		close(wfd);
-	}
+	FD::close();
 }
 
+
+void FD::close()
+{
+	if(rfd != -1) {
+		::close(rfd);
+	}
+	if(rfd != wfd && wfd != -1) {
+		::close(wfd);
+	}
+	rfd = -1;
+	wfd = -1;
+}
 

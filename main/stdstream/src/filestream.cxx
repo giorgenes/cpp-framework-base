@@ -3,62 +3,50 @@
 
 using namespace ::libany::stdstream;
 
-IFileStream::IFileStream(const char* path)
+IOFileStream::IOFileStream(const char* path)
+{
+	IOFileStream(path, "r");
+}
+
+IOFileStream::IOFileStream(const char* path, const char* mode)
 	: _owner(true)
 {
-	_fp = fopen(path, "r");
+	_fp = fopen(path, mode);
 	if(!_fp) {
 		throw std::runtime_error("could not open file");
 	}
 }
 
-IFileStream::IFileStream(FILE* fp)
+IOFileStream::IOFileStream(FILE* fp)
 	: _fp(fp), _owner(false)
 {
 }
 
 
-IFileStream::~IFileStream()
+IOFileStream::~IOFileStream()
 {
 	if(_fp && _owner) {
 		fclose(_fp);
 	}
 }
 
-int IFileStream::read(void* p, int len)
+int IOFileStream::read(char* p, int len)
 {
 	return fread(p, sizeof(char), len, _fp);
 }
 
-bool IFileStream::eos()
+bool IOFileStream::eos()
 {
 	return feof(_fp);
 }
 
-OFileStream::OFileStream(const char* path)
+int IOFileStream::write(const char* p, int len)
 {
-	_fp = fopen(path, "w");
-	if(!_fp) {
-		throw std::runtime_error("could not open file for writing");
+	int r = fwrite(p, sizeof(char), len, _fp);
+	if(r == 0) {
+		throw std::runtime_error("could not write to file");
 	}
-	_owner = true;
-}
 
-OFileStream::OFileStream(FILE* fp)
-{
-	_fp = fp;
-	_owner = false;
-}
-
-int OFileStream::write(const void* p, int len)
-{
-	return fwrite(p, sizeof(char), len, _fp);
-}
-
-OFileStream::~OFileStream()
-{
-	if(_fp && _owner) {
-		fclose(_fp);
-	}
+	return r;
 }
 

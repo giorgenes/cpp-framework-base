@@ -1,3 +1,6 @@
+#ifndef __libany__io_io_h
+#define __libany__io_io_h
+
 #include <sys/time.h>
 
 namespace libany {
@@ -27,6 +30,7 @@ namespace libany {
 							struct timeval* p_tv, 
 							int* p_error,
 							int p_complete);
+				
 				int send(
 						const void* p_buf, 
 						size_t p_size, 
@@ -47,8 +51,20 @@ namespace libany {
 
 
 				static void set_fail(bool);
-				void connect(const char* p_host, int p_port, struct timeval* ptv, int* p_error);
+				
+				void connect(const char* p_host, 
+						int p_port, struct timeval* ptv, int* p_error);
+
 				int accept(int p_tmout, int p_retry, int* p_rfd, int* p_error);
+
+				inline void setfd(int in, int ou) {
+					rfd = in;
+					wfd = ou;
+				};
+
+				void close();
 		};
 	}
 }
+
+#endif

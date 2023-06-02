@@ -6,29 +6,19 @@
 
 namespace libany {
 	namespace stdstream {
-		class IFileStream : public ::libany::stream::IStream {
+		class IOFileStream : public virtual ::libany::stream::Stream {
 			private:
 				FILE* _fp;
 				bool _owner;
 			public:
-				IFileStream(const char*);
-				IFileStream(FILE*);
-				virtual ~IFileStream();
+				IOFileStream(const char*);
+				IOFileStream(const char*, const char*);
+				IOFileStream(FILE*);
+				virtual ~IOFileStream();
 
-				int read(void*, int);
+				int read(char*, int);
 				bool eos();
-		};
-		
-		class OFileStream : public ::libany::stream::OStream {
-			private:
-				FILE* _fp;
-				bool _owner;
-			public:
-				OFileStream(const char*);
-				OFileStream(FILE*);
-				virtual ~OFileStream();
-
-				int write(const void*, int);
+				int write(const char*, int);
 		};
 
 	}

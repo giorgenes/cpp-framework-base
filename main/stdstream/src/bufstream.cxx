@@ -7,7 +7,7 @@ using namespace ::libany::stdstream;
  * as possible, not only the data
  * in the buffer XOR the data in
  * the stream */
-int IBufStream::read(void* p, int len)
+int BufStream::read(char* p, int len)
 {
 	int b = 0;
 	int toread;
@@ -33,7 +33,7 @@ int IBufStream::read(void* p, int len)
 	return b;
 }
 
-bool IBufStream::eos()
+bool BufStream::eos()
 {
 	if(_p < &_buf[sizeof(_buf)]) {
 		return false;
@@ -42,7 +42,7 @@ bool IBufStream::eos()
 	return _st.eos();
 }
 
-int IBufStream::unread(const char* p, int len)
+int BufStream::unread(const char* p, int len)
 {
 	if(_p - len < _buf) {
 		return 0;
@@ -54,3 +54,41 @@ int IBufStream::unread(const char* p, int len)
 	return len;
 }
 
+int BufStream::readline(char* s, size_t len)
+{
+	char* p = (char*)s;
+	char buf[LIBANY_STDSTREAM_BUFSIZE];
+	size_t t;
+	int r;
+	
+
+	t = len > sizeof(buf) ? sizeof(buf) : len;
+
+	if((r = BufStream::read(p, t-1)) <= 0) {
+		return r;
+	}
+
+	p[r] = 0;
+	int i = 0;
+	while(i < r) {
+		if(p[i] == '\n') {
+			break;
+		}
+		i++;
+	}
+	if(i < r) {
+		i++;
+		unread(&p[i], r - i);
+	}
+	else {
+		i = r;
+	}
+	p[i] = 0;
+
+	return i;
+}
+
+int BufStream::write(const char* buf, int size)
+{
+	return _st.write(buf, size);
+}

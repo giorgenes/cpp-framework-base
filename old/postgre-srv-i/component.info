@@ -1,0 +1,2 @@
+NAME=postgresrvi
+REQUIRE="stdsrvi postgresrv netstream"

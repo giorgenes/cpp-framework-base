@@ -7,6 +7,7 @@
 #include <libany/stdstream/cut.h>
 
 using namespace ::libany::cgi;
+namespace stm = ::libany::stdstream;
 
 static void get_cgi_env(::libany::cgi::CGIEnv& env)
 {
@@ -36,15 +37,14 @@ static void get_cgi_env(::libany::cgi::CGIEnv& env)
 	env.cookies = getenv("HTTP_COOKIE");
 }
 
-
 void StdCGI::run(int argc, char**argv)
 {
-	::libany::stdstream::OFileStream stout(stdout);
-	::libany::stdstream::IFileStream stin(stdin);
-	::libany::stdstream::IEnableStream en(stin);;
-	::libany::stdstream::ICutStream cut(en);
-	::libany::stdstream::IOCompositeStream s(cut, stout);
-	::libany::cgi::CGIEnv env(s);
+	stm::OFileStream stout(stdout);
+	stm::IFileStream stin(stdin);
+	stm::IEnableStream en(stin);;
+	stm::ICutStream cut(en);
+	stm::IOCompositeStream s(cut, stout);
+	CGIEnv env(s);
 	
 	get_cgi_env(env);
 
@@ -56,9 +56,17 @@ void StdCGI::run(int argc, char**argv)
 
 	{
 		Header header(env);
-		_cgi.write_header(env, header);
+		_app.write_header(env, header);
 		header.complete();
 	}
-	_cgi.write_body(env);
+	_app.write_body(env);
+
+	/* reads the remaining data, 
+	 * to avoid delays in the browser */
+	{
+		char buf[1024];
+		while(env.io.read(buf, sizeof(buf))>0) {
+		}
+	}
 }
 

@@ -1,0 +1,30 @@
+digraph TestGraph {
+	node [shape=ellipse fontsize=10 fontname="Courier"        ]; ell_a ell_b ell_c;
+	node [shape=box     fontsize=13 fontname="Verdana"        ]; box_a box_b box_c;
+	node [shape=diamond fontsize= 9 fontname="Times new Roman"]; dia_a dia_b dia_c;
+
+	"ell_a" [label="Ellipse A"];
+	"ell_b" [label="Ellipse B"];
+	"ell_c" [label="Ellipse C"];
+
+	"box_a" [label="Box A"];
+	"box_b" [label="Box B"];
+	"box_c" [label="Box C"];
+
+	"dia_a" [label="Diamond A"];
+	"dia_b" [label="Diamond B" color=red];
+	"dia_c" [label="Diamond C" color=red];
+
+	"ell_a" -> "box_a"  [label="From Ellipse to Box" fontname="Verdana" fontsize=8];
+	"box_a" -> "dia_a";
+
+	"box_a" -> "box_b"  [label="Connecting boxes" fontname="Verdana" fontsize=8];
+	"box_b" -> "box_c";
+
+	"dia_b" -> "dia_c"  [color=red fontcolor=green label="Important link" fontsize=9 arrowhead=none];
+
+	"box_a" -> "ell_b"  [fontname="Arial" label="one to many" fontsize=9 arrowhead=crow];
+}
+
+
+

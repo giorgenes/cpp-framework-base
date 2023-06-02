@@ -2,7 +2,6 @@
 #include <libany/cgi/stdcgi.h>
 #include <libany/stdstream/urlencode.h>
 #include <stdio.h>
-#include <string.h>
 
 class MyCGI : public ::libany::cgi::CGI {
 	public:
@@ -14,7 +13,13 @@ class MyCGI : public ::libany::cgi::CGI {
 void MyCGI::write_header(
 		const ::libany::cgi::CGIEnv& env, ::libany::cgi::Header& header)
 {
-	header.write_content_type("text/xml");
+	header.write_content_type("text/plain");
+	header.write_cookie("session", 
+			"test", "trinita.canopus", "/", time(NULL)+1000, false);
+	
+	header.write_cookie("colosso", 
+			"test", "trinita.canopus", "/", time(NULL)+1000, false);
+
 }
 
 void MyCGI::write_body(const ::libany::cgi::CGIEnv& env)
@@ -23,67 +28,23 @@ void MyCGI::write_body(const ::libany::cgi::CGIEnv& env)
 	char buf[1024];
 	::libany::stdstream::IUrlEncodeStream in(env.io);
 
-	if(!env.path_info) {
-		len = sprintf(buf, "<error>\n");
-		env.io.write(buf, len);		
-		len = sprintf(buf, "</error>\n");
-		env.io.write(buf, len);		
-		return;
-	}
-	if(strcmp(env.path_info, "/add")==0) {
-		FILE* fp;
-		char name[1024];
+	len = sprintf(buf, "query_string: %s\n", env.query_string);
+	env.io.write(buf, len);
 
-		while(in.get_next_pair()) {
-			if(strcmp(in.key(), "name")==0) {
-				len = in.read(name, sizeof(name));
-				name[len] = 0;
-			}
-		}
-		fp = fopen("krushitas.txt", "a");
-		if(fp) {
-			fprintf(fp, "%s\n", name);
-			fclose(fp);
-		}
-		goto aqui;
-	}
-	else if(strcmp(env.path_info, "/list")==0) {
-aqui:
-		FILE* fp;
-		char aux[1024];
+	len = sprintf(buf, "path_info: %s\n", env.path_info);
+	env.io.write(buf, len);
 
-		len = sprintf(buf, "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n");
-		env.io.write(buf, len);		
+	len = sprintf(buf, "cookies: %s\n", env.cookies);
+	env.io.write(buf, len);
 
-		len = sprintf(buf, "<?xml-stylesheet type=\"text/xsl\" href=\"../krushitas.xsl\"?>\n");
-		env.io.write(buf, len);		
-		
-		len = sprintf(buf, "<krushitas>\n");
+	while(in.get_next_pair()) {
+		len = sprintf(buf, "key: %s\ndata: ", in.key());
 		env.io.write(buf, len);
-		
-		fp = fopen("krushitas.txt", "r");
-		if(fp) {
-			while(fgets(aux, sizeof(aux), fp)!=NULL) {
-				len = sprintf(buf, "<krushita>");
-				env.io.write(buf, len);
 
-				len = strlen(aux);
-				env.io.write(aux, len-1);
-
-				len = sprintf(buf, "</krushita>\n");
-				env.io.write(buf, len);
-
-			}
-			fclose(fp);
+		while((len = in.read(buf, sizeof(buf))) > 0) {
+			env.io.write(buf, len);
 		}
-		len = sprintf(buf, "</krushitas>\n");
-		env.io.write(buf, len);		
-	}
-	else {
-		len = sprintf(buf, "<error>\n");
-		env.io.write(buf, len);		
-		len = sprintf(buf, "</error>\n");
-		env.io.write(buf, len);		
+		env.io.write("\n", 1);
 	}
 }
 

@@ -1,0 +1,3 @@
+NAME=objectstream
+REQUIRE="stream stdstream"
+FLAGS="so"

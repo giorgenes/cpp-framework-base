@@ -2,30 +2,30 @@
 
 using namespace ::libany::netstream;
 
-TCPClientIOStream::TCPClientIOStream()
+TCPClientStream::TCPClientStream()
 {
 }
 
-TCPClientIOStream::~TCPClientIOStream()
+TCPClientStream::~TCPClientStream()
 {
 }
 
-int TCPClientIOStream::read(void* p, int s)
+int TCPClientStream::read(void* p, int s)
 {
 	return _fd.recv(p, s, 0, 0, 0);
 }
 
-int TCPClientIOStream::write(const void* p, int s)
+int TCPClientStream::write(const void* p, int s)
 {
 	return _fd.send(p, s, 0, 0);
 }
 
-bool TCPClientIOStream::eos()
+bool TCPClientStream::eos()
 {
 	return false;
 }
 
-void TCPClientIOStream::connect(const char* host, int port)
+void TCPClientStream::connect(const char* host, int port)
 {
 	try {
 		int error;

@@ -2,89 +2,57 @@
 #define __libany__rcpp__session_h
 
 #include <libany/ios/ios.h>
+#include <libany/bxtp/stream.h>
+#include <libany/bxtp/document.h>
 
 #define LIBANY_RCCP_VER 1
 
 namespace libany {
 	namespace rcpp {
-		class Session {
+		class RcppStream : public ::libany::bxtp::BxtpStream {
 			private:
-				::libany::stream::IOStream* st;
-				int _ver;
-			public:
-				Session(::libany::stream::IOStream* st, 
-						int ver = LIBANY_RCCP_VER)
-					: st(st), _ver(ver) {}
-
-				inline ::libany::stream::IOStream* stm() {
-					return Session::st;
-				};
-
-				virtual void handshake() = 0;
-				
-		};
-
-		class ClientSession : public Session {
-			public:
-				ClientSession(::libany::stream::IOStream* st, 
-						int ver = LIBANY_RCCP_VER)
-					: Session(st, ver) {}
-				void handshake();
-		};
-
-		class ServerSession : public Session {
-			public:
-				ServerSession(::libany::stream::IOStream* st, 
-						int ver = LIBANY_RCCP_VER)
-					: Session(st, ver) {}
-				void handshake();
-		};
-
-		class PostL0 : public ::libany::stream::IOStream {
+				bool _exception;
 			protected:
-				Session* _session;
-				unsigned char _buf[2];
-				
-				void recv_header();
-				inline void consume_buffer() {
-					_buf[0] = 0;
+			public:
+				RcppStream(::libany::stream::Stream &st)
+					: ::libany::bxtp::BxtpStream(st) {
 				};
-			public:
-				PostL0(Session* session); 
-				
-				void send_header(char, char);
-				bool recv(char*, char*);
 
-				/* stream functions */
-				virtual int write(const void*, int);
-				virtual int read(void*, int);
-				virtual bool eos();
-
+				void commit();
+				void rollback();
 		};
-		
-		class PostL1 : private PostL0 {
+
+		class RcppDocument : public ::libany::bxtp::Document {
 			private:
-				int _cmd;
-				short _state;
-				int _written;
+				bool _keyclosed;
+				bool _dataclosed;
 
-				void send_header(char, char, int, int);
-				bool recv_header(char, int, int);
-				void check_state(int);
+				void throw_exception();
+			protected:
 			public:
-				PostL1(Session* session);
-				bool next_field();
-				bool next_group();
+				RcppDocument(RcppStream &st) 
+					: ::libany::bxtp::Document(st) 
+					{
+					};
 
-				void send_end();
-				void send_begin(char p_cmd);
-				void recv(char*);
+				void request_begin_nquery(const char*, const char* base = 0);
+				void request_begin_query(const char*, const char* base = 0);
+				
+				void request_key(const char* key, 
+						const char* value=0 , int len=0);
 
-				/* stream functions */
-				int write(const void*, int);
-				int read(void*, int);
-				bool eos();
+				void request_data(const char* key, 
+						const char* value=0, int len=0);
+				
+				void request_end();
+
+				void request_begin_data();
+				
+				virtual bool match(const char**, int*, bool e = false);
+				virtual bool match(const char*, bool e = false);
+				virtual void match_end();
 		};
+
 	}
 }
 

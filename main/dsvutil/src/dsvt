@@ -1,0 +1,12 @@
+#!/usr/bin/ruby1.8
+
+def usage
+	puts "Dsv Tools"
+	puts "  top  show build top dir"
+	puts "  libs show gcc libs opt"
+end
+
+if ARGV.size == 0 or ARGV[0] == "help" then
+	usage
+	exit 0
+end

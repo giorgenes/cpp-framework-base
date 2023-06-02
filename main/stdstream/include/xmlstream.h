@@ -7,7 +7,7 @@
 
 namespace libany {
 	namespace stdstream {
-		class OXmlStream : public ::libany::stream::OStream {
+		class OXmlStream : public virtual ::libany::stream::Stream {
 			private:
 				XML_Parser parser;
 				char current_tag_path[1024];
@@ -25,8 +25,11 @@ namespace libany {
 					tag_process_callback(const char*, const char*) = 0;
 				virtual void
 					on_tag_begin(const char*, const char**);
+				virtual void
+					on_tag_end(const char*);
+
 			public:
-				int write(const void*, int);
+				int write(const char*, int);
 				OXmlStream();
 				virtual ~OXmlStream();
 		};

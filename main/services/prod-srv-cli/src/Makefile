@@ -2,11 +2,11 @@ TOPDIR := $(shell dsvt-topdir)
 NAME := $(shell dsvt-component-name)
 BUILDDIR := $(TOPDIR)/build/$(NAME)
 $(shell mkdir -p $(BUILDDIR))
-VPATH = $(BUILDDIR)
+VPATH = $(BUILDDIR):$(TOPDIR)/lib
 SRC = $(wildcard *.cxx)
 OBJ := $(SRC:%.cxx=%.o)
 BUILDOBJ := $(SRC:%.cxx=$(BUILDDIR)/%.o)
-LIBPATH := $(BUILDDIR)/libany$(NAME).so
+LIBPATH := $(TOPDIR)/lib/libany$(NAME).so
 
 .SUFFIXES: .cxx .o
 
@@ -28,8 +28,4 @@ $(LIBPATH): $(OBJ)
 clean:
 	@rm -f $(BUILDOBJ) $(LIBPATH)
 
-.PHONNY: install
-install: all
-	mkdir -p $(TOPDIR)/lib
-	cp $(LIBPATH) $(TOPDIR)/lib/
 

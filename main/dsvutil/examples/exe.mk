@@ -1,16 +1,35 @@
+NAME := $(shell dsvt-component-name)
+
+#edit this line
+BINNAME := $(NAME)
+
+TOPDIR := $(shell dsvt-topdir)
+BUILDDIR := $(TOPDIR)/build/$(NAME)
+$(shell mkdir -p $(BUILDDIR))
+VPATH = $(BUILDDIR):$(TOPDIR)/bin
 SRC = $(wildcard *.cxx)
-OBJ = $(SRC:.cxx=.o)
+OBJ := $(SRC:%.cxx=%.o)
+BUILDOBJ := $(SRC:%.cxx=$(BUILDDIR)/%.o)
+BINPATH := $(TOPDIR)/bin/$(BINNAME)
 
 .SUFFIXES: .cxx .o
 
-CXXFLAGS = `dsvt-cflags` -Wall -ggdb3
+CXXFLAGS := $(shell dsvt-cflags) -I../include -Wall -ggdb3
 
-.cxx.o:
-	gcc -c $< $(CXXFLAGS)
+.PHONY: all
+all: $(BINNAME)
 
-all: $(OBJ)
-	g++ $(OBJ) -o `dsvt-component-name` `dsvt-libs`
+#.o: $(basename $(notdir $@)).cxx
+$(OBJ): %.o: %.cxx
+	@echo CC $(NAME)/$<
+	@gcc -c $< $(CXXFLAGS) -o $(BUILDDIR)/$@
 
+$(BINPATH): $(OBJ)
+	@echo LD $(BINNAME)
+	@g++ $(BUILDOBJ) -o $@ `dsvt-libs` $(LDFLAGS)
+
+.PHONY: clean
 clean:
-	rm -f $(OBJ) `dsvt-component-name`
-	
+	@rm -f $(BUILDOBJ) $(BINPATH)
+
+

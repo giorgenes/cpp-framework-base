@@ -4,11 +4,11 @@
 
 using namespace ::libany::bxtp;
 
-BxtpIStream::~BxtpIStream()
+BxtpStream::~BxtpStream()
 {
 }
 
-int BxtpIStream::read(void* ptr, int s)
+int BxtpStream::read(void* ptr, int s)
 {
 	if(_st != 2) return -1;
 
@@ -46,12 +46,12 @@ int BxtpIStream::read(void* ptr, int s)
 	return b;
 }
 
-bool BxtpIStream::eos()
+bool BxtpStream::eos()
 {
 	return _st != 2;
 }
 
-bool BxtpIStream::next_token(int* token)
+bool BxtpStream::next_token(int* token)
 {
 	char buf[2];
 	int len;

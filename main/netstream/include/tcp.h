@@ -6,12 +6,12 @@
 
 namespace libany {
 	namespace netstream {
-		class TCPClientIOStream : public ::libany::stream::IOStream {
+		class TCPClientStream : public ::libany::stream::Stream {
 			private:
 				::libany::io::FD _fd;
 			public:
-				TCPClientIOStream();
-				virtual ~TCPClientIOStream();
+				TCPClientStream();
+				virtual ~TCPClientStream();
 
 				int read(void*, int);
 				int write(const void*, int);

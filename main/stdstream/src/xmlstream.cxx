@@ -7,7 +7,7 @@ using namespace ::libany::stdstream;
 #include <string.h>
 #include <ctype.h>
 
-int OXmlStream::write(const void* p_ptr, int p_size)
+int OXmlStream::write(const char* p_ptr, int p_size)
 {   
 	XML_Parse(this->parser, (const char*)p_ptr, p_size, 0);
 	if(this->content) {
@@ -19,6 +19,10 @@ int OXmlStream::write(const void* p_ptr, int p_size)
 }
 
 void OXmlStream::on_tag_begin(const char*, const char **)
+{
+}
+
+void OXmlStream::on_tag_end(const char*)
 {
 }
 
@@ -47,12 +51,17 @@ void OXmlStream::end(void *data, const char *el)
 	}
 	stream->content_length = 0;
 
+	if(stream->current_tag_path_len > 0) {
+		stream->on_tag_end(stream->current_tag_path);
+	}
+
 	while(stream->current_tag_path[stream->current_tag_path_len] != '/') {
 		stream->current_tag_path_len--;
 	}
 	stream->current_tag_path[stream->current_tag_path_len] = 0;
 
 	stream->state = 2;
+
 
 	el = NULL;
 }
@@ -102,7 +111,7 @@ OXmlStream::OXmlStream()
 	content_length(0),
 	content_length_max(0)
 {
-	this->parser = XML_ParserCreate("ISO-8859-1");
+	this->parser = XML_ParserCreate(0);
 
 	if(!this->parser) {
 		throw std::runtime_error("could not allocate xml parser");

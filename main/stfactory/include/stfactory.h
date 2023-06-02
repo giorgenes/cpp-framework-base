@@ -7,7 +7,7 @@ namespace libany {
 	namespace stfactory {
 		class StreamFactory  {
 			public:
-				::libany::stream::IOStream* build(const char*);
+				::libany::stream::Stream* build(const char*);
 		};
 	}
 }

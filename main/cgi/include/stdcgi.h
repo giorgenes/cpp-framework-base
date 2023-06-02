@@ -7,10 +7,10 @@ namespace libany {
 	namespace cgi {
 		class StdCGI {
 			protected:
-				CGI& _cgi;
+				CGIApp& _app;
 			public:
-				StdCGI(CGI &cgi)
-					: _cgi(cgi) {
+				StdCGI(CGIApp &app)
+					: _app(app) {
 				};
 
 				void run(int argc, char**argv);

@@ -16,14 +16,14 @@ class Component {
 		FILE* open_childs_file(const char* rev, const char*);
 		FILE* open_revisions_file(const char*);
 		void send_file(
-				::libany::stream::IStream&,
+				::libany::stream::Stream&,
 				const char*, 
 				const char*, 
 				const char*, 
-				::libany::bxtp::ODocument&);
+				::libany::bxtp::Document&);
 		void send_childs(
 				const char*, 
-				::libany::bxtp::ODocument&);
+				::libany::bxtp::Document&);
 	public:
 		ComponentDB& _db;
 		char name[128];
@@ -44,8 +44,8 @@ class Component {
 			*name = 0;
 		};
 
-		void send_files(const char*, ::libany::bxtp::ODocument&);
-		void send_revisions(::libany::bxtp::ODocument&);
+		void send_files(const char*, ::libany::bxtp::Document&);
+		void send_revisions(::libany::bxtp::Document&);
 
 };
 

@@ -5,34 +5,17 @@
 
 namespace libany {
 	namespace stdstream {
-		class IEnableStream : public ::libany::stream::IStream {
+		class IOEnableStream : public virtual ::libany::stream::Stream {
 			private:
-				::libany::stream::IStream& _st;
+				::libany::stream::Stream& _st;
 				bool _enabled;
 			public:
-				IEnableStream(::libany::stream::IStream &st) 
+				IOEnableStream(::libany::stream::Stream &st) 
 					: _st(st), _enabled(false) {
 				};
-				int read(void*, int);
+				int read(char*, int);
 				bool eos();
-
-				void set_enable(bool e) {
-					_enabled = e;
-				};
-
-		};
-
-		class IOEnableStream : public ::libany::stream::IOStream {
-			private:
-				::libany::stream::IOStream& _st;
-				bool _enabled;
-			public:
-				IOEnableStream(::libany::stream::IOStream &st) 
-					: _st(st), _enabled(false) {
-				};
-				int read(void*, int);
-				bool eos();
-				int write(const void*, int);
+				int write(const char*, int);
 
 				void set_enable(bool e) {
 					_enabled = e;

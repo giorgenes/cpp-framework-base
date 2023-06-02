@@ -1,0 +1,2 @@
+NAME=bxtptest
+REQUIRE="utils stdstream stfactory bxtp"

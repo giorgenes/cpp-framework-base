@@ -3,26 +3,18 @@
 
 namespace libany {
 	namespace stream {
-		class OStream;
-		class IStream {
+		class Stream {
 			public:
-				virtual int read(void*, int) = 0;
+				virtual int read(char*, int) = 0;
+				virtual int write(const char*, int) = 0;
 				virtual bool eos() = 0;
 
-				virtual int copyto(OStream*);
-		};
+				virtual int copyto(Stream*);
+				virtual int copyfrom(Stream*);
 
-		class OStream {
-			public:
-				virtual int write(const void*, int) = 0;
+				virtual void close();
 
-				virtual int copyfrom(IStream*);
-		};
-
-		class IOStream : public IStream, public OStream {
-		};
-
-		class BlockStream : public IStream, public OStream {
+				virtual ~Stream();
 		};
 	}
 }

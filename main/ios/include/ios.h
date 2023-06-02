@@ -5,6 +5,7 @@
 
 namespace libany {
 	namespace ios {
+#if 0
 		/* router class.
 		 * Given a service name and
 		 * a key, it returns a
@@ -14,19 +15,28 @@ namespace libany {
 				virtual const char* route(
 					 const char* service, 
 					 const char* key) = 0;
+				
+				virtual void search(const char* srv, const char* key) = 0;
+				virtual const char* next() = 0;
+
+				virtual ~Router();
+
 		};
+#endif
 
 		class Client {
 			protected:
-				Router& _router;
+				::libany::stream::Stream& _stream;
 			public:
-				Client(Router& r) : _router(r) {
+				Client(::libany::stream::Stream& r) : _stream(r) {
 				};
 		};
 		
 		class Service {
 			public:
-				virtual void handle_client(::libany::stream::IOStream*) = 0;
+				virtual void handle_client(::libany::stream::Stream*) = 0;
+
+				virtual ~Service();
 		};
 	}
 }

@@ -6,7 +6,6 @@
 #include <libany/stfactory/uristream.h>
 #include <stdio.h>
 #include "transaction.h"
-#include "atomic.h"
 #include "db.h"
 
 namespace libany {
@@ -16,7 +15,6 @@ namespace libany {
 				DB* _db;
 			public:
 				virtual ::libany::rcpp::Transaction* new_transaction();
-				virtual ::libany::rcpp::AtomicTransaction* new_atomic_transaction();
 
 				Client(DB*);
 				virtual ~Client();

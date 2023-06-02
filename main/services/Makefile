@@ -1,4 +1,6 @@
 COMPONENTS := \
+	db-srv-cli \
+	db-srv \
 	componentfsdb-srv\
 	component-srv\
 	component-srv-cli\
@@ -14,7 +16,7 @@ COMPONENTS := \
 .PHONNY: all
 all: 
 	@for i in `echo $(COMPONENTS)`; do \
-		make -sC $$i/src; \
+		make -sC $$i/src || exit 1;\
 	done
 
 .PHONNY: clean

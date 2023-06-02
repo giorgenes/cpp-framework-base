@@ -5,12 +5,12 @@
 
 namespace libany {
 	namespace stdstream {
-		class IONullStream : public ::libany::stream::IOStream {
+		class IONullStream : public virtual ::libany::stream::Stream {
 			private:
 			public:
-				int read(void*, int);
+				int read(char*, int);
 				bool eos();
-				int write(const void*, int);
+				int write(const char*, int);
 		};
 	}
 }

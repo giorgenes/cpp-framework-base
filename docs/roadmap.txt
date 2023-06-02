@@ -1,15 +1,20 @@
-1.  - rccp
-    - streams
-	- ISS
-	- distributed queries
-	- user service
+- rccp
+- streams
+- ISS
+- distributed queries
+- user service
 
-2. - repository service
+- repository service
 
-3. - release service
+- product service
+(releases, hlg)
 
-3. - issue service
+- issue service
+(bugs, feature requests)
 
-4. - project service
+- project service
+(projects, tasks)
 
-5. - tk service
+- tk service
+
+- test report service

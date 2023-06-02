@@ -18,9 +18,9 @@ for file in `find $TOPDIR -follow -name component.info`; do
 	fi
 
 	mkdir -p $TOPDIR/lib
-	if [ "$FLAGS" == "so" ]; then
-		ln -sf $path/src/libany$NAME.so $TOPDIR/lib/libany$NAME.so
-	fi
+	#if [ "$FLAGS" == "so" ]; then
+	#	ln -sf $path/src/libany$NAME.so $TOPDIR/lib/libany$NAME.so
+	#fi
 
 done
 

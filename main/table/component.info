@@ -1,0 +1,3 @@
+NAME=table
+FLAGS=so
+REQUIRE="stream memory"

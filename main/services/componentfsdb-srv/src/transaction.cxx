@@ -26,14 +26,8 @@ void Transaction::begin()
 {
 }
 
-Transaction::~Transaction()
+void Transaction::exec(::libany::bxtp::Document& doc)
 {
-}
-
-void Transaction::exec(::libany::bxtp::ODocument& doc)
-{
-	impl::BTransaction::exec(doc);
-
 	char* params[10];
 	char** p = &params[1];
 	int n = libany::utils::string_split(__query, " \t", params, 10);
@@ -56,18 +50,13 @@ void Transaction::exec(::libany::bxtp::ODocument& doc)
 	}
 }
 
-void Transaction::key(::libany::bxtp::IDocument& doc)
+void Transaction::key(::libany::bxtp::Document& doc)
 {
-	impl::BTransaction::key(doc);
-}
-
-void Transaction::data(::libany::bxtp::IDocument& doc)
-{
-	impl::BTransaction::data(doc);
+	impl::Transaction::key(doc);
 }
 
 void Transaction::begin_exec(const char* service, const char* base)
 {
-	impl::BTransaction::begin_exec(service, base);
+	impl::Transaction::begin_exec(service, base);
 }
 

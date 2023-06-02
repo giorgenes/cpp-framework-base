@@ -5,15 +5,20 @@
 
 namespace libany {
 	namespace stdstream {
-		class ICompleteStream : public ::libany::stream::IStream {
+		class CompleteStream : public virtual ::libany::stream::Stream {
 			private:
-				::libany::stream::IStream* _st;
+				::libany::stream::Stream& _st;
 			public:
-				ICompleteStream(::libany::stream::IStream*);
+				CompleteStream(::libany::stream::Stream &st) 
+					: _st(st) {
+				};
 
-				int read(void*, int);
-				bool eos();
+				virtual int read(char*, int);
+				virtual int write(const char*, int);
+				virtual bool eos();
+				virtual void close();
 		};
+
 	}
 }
 

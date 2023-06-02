@@ -7,17 +7,17 @@
 
 using namespace ::libany::componentfsdbsrv;
 
-BTransaction::~BTransaction()
+Transaction::~Transaction()
 {
 }
 
-void BTransaction::data(::libany::bxtp::IDocument& doc)
+void Transaction::data(::libany::bxtp::Document& doc)
 {
-	::libany::dbsrv::BTransaction::data(doc);
+	::libany::dbsrv::Transaction::data(doc);
 }
 
 bool
-BTransaction::check_param(
+Transaction::check_param(
 		const char* name, const char* check, int n, int desired)
 {
 	if(strcmp(name, check)) {

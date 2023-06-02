@@ -6,17 +6,17 @@
 
 using namespace postgresrv_impl;
 
-BTransaction::BTransaction(PostgreDB* db)
+Transaction::Transaction(PostgreDB* db)
 	: _db(db)
 {
 }
 
-BTransaction::~BTransaction()
+Transaction::~Transaction()
 {
 }
 
-void BTransaction::data(::libany::bxtp::IDocument& doc)
+void Transaction::data(::libany::bxtp::Document& doc)
 {
-	::libany::dbsrv::BTransaction::data(doc);
+	::libany::dbsrv::Transaction::data(doc);
 }
 

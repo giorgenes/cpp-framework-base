@@ -1,0 +1,2 @@
+NAME=objectstream-unit
+REQUIRE="objectstream"
