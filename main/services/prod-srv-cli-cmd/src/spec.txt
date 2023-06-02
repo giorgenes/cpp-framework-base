@@ -1,0 +1,5 @@
+prod create foo
+prod checkout foo fixxer_1_0_beta
+prod makeversion correcao_23
+prod add component_name
+prod update component_name revision

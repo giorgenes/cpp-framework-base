@@ -1,0 +1,3 @@
+NAME=usrsrvcli
+FLAGS="so"
+REQUIRE="rcpp ios stfactory"

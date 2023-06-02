@@ -1,0 +1,5 @@
+create foo vshouse users
+create bar vshouse users
+check foo vshouse users
+list vshouse users
+

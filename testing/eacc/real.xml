@@ -1,0 +1,17 @@
+<accounts>
+	<account id="ativo" name="" value="0.00" type="asset">
+		<account id="caixa" name="hohoho" value="850.00" type="asset"/>
+		<account id="banco" name="" value="200.00" type="asset"/>
+		<account id="emprestimos" name="" value="0.00" type="asset"/>
+	</account>
+	<account id="passivo" name="" value="0.00" type="liability">
+		<account id="init" name="" value="1000.00" type="equity"/>
+	</account>
+	<account id="expense" name="" value="0.00" type="expense">
+		<account id="food" name="" value="350.00" type="expense"/>
+		<account id="gas" name="" value="100.00" type="expense"/>
+	</account>
+	<account id="income" name="" value="0.00" type="income">
+		<account id="job" name="" value="500.00" type="income"/>
+	</account>
+</accounts>

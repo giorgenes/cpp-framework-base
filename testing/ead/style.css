@@ -1,0 +1,26 @@
+#not_logged {
+	position:absolute; 
+	left: auto; 
+	right: 50px; 
+	top: 15px; 
+	width: auto; 
+	height: 20px; 
+	text-align: right; 
+	color: #FFF; 
+	background-color: transparent; 
+	font: 14px Arial, Helvetica, sans-serif;
+}
+
+#login_form {
+	display: none;
+	position:absolute; 
+	left: auto; 
+	right: 50px; 
+	top: 15px; 
+	width: auto; 
+	height: 20px; 
+	text-align: right; 
+	color: #FFF; 
+	background-color: transparent; 
+	font: 14px Arial, Helvetica, sans-serif;
+}

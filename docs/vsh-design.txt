@@ -1,0 +1,11 @@
+- O uso de servicos na mesma porta, "a la manager" foi descartado
+devido a arquitetura distribuida adotada. Dois servicos podem
+estar em maquinas diferentes impossibilitando tal solucao.
+
+2006-02-09:
+
+dois servivos podem ocupar o mesmo processo, visto
+q o nome do servico vai junto de cada requisicao,
+podendo ser roteado dentro do processo.
+
+

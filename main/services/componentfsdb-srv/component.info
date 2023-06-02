@@ -1,0 +1,3 @@
+NAME=componentfsdbsrv
+FLAGS="so"
+REQUIRE="rcpp utils dbsrvcli stdstream dbsrv"

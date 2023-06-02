@@ -1,0 +1,3 @@
+NAME=rcpp
+FLAGS="so"
+REQUIRE="ios stream"

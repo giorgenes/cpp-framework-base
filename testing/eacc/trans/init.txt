@@ -1,0 +1,3 @@
+1000 caixa init
+500 banco init
+

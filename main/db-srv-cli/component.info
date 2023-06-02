@@ -1,0 +1,3 @@
+NAME=dbsrvcli
+FLAGS="so"
+REQUIRE="rcpp ios stfactory table"

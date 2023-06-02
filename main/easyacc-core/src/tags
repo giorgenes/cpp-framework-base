@@ -1,0 +1,54 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.5.2	//
+AccTree	acctree.cxx	/^AccTree::AccTree()$/;"	f	class:AccTree
+Account	account.cxx	/^Account::Account()$/;"	f	class:Account
+Opt	opt.cxx	/^Opt::Opt()$/;"	f	class:Opt
+XML_chardata	acctree.cxx	/^static void XML_chardata(void *data,const XML_Char *s,int len)$/;"	f	file:
+clean	account.cxx	/^void Account::clean()$/;"	f	class:Account
+close	acctree.cxx	/^void AccTree::close()$/;"	f	class:AccTree
+close	utils.cxx	/^void File::close()$/;"	f	class:File
+credit	account.cxx	/^void Account::credit(double v)$/;"	f	class:Account
+debit	account.cxx	/^void Account::debit(double v)$/;"	f	class:Account
+end	acctree.cxx	/^static void end(void *data, const char *el)$/;"	f	file:
+exec_transaction	acctree.cxx	/^exec_transaction($/;"	f	file:
+g_account_types	account.cxx	/^}g_account_types[] = {$/;"	v	file:
+get_account_options	acctree.cxx	/^get_account_options(AccTree* p_tree, Account* p_acc, const char* p_opt)$/;"	f	file:
+get_account_properties	acctree.cxx	/^get_account_properties(AccTree* p_tree, Account* p_acc, const char **attr)$/;"	f	file:
+get_profit	acctree.cxx	/^static double get_profit(AccTree& p_tree)$/;"	f	file:
+get_sum_by_type	acctree.cxx	/^static double get_sum_by_type(Node<Account>* p_root, AccountType p_type)$/;"	f	file:
+get_type	account.cxx	/^const char* Account::get_type()$/;"	f	class:Account
+load	acctree.cxx	/^void AccTree::load(const char* p_path)$/;"	f	class:AccTree
+main	main.cxx	/^int main(int argc, char** argv)$/;"	f
+modifier	account.cxx	/^	double modifier;$/;"	m	file:
+open	utils.cxx	/^void File::open(const char* p_path, const char* p_mode)$/;"	f	class:File
+operator -=	acctree.cxx	/^AccTree& AccTree::operator -= (AccTree& p_other)$/;"	f	class:AccTree
+parse	opt.cxx	/^void Opt::parse(int argc, char** argv)$/;"	f	class:Opt
+print	acctree.cxx	/^void AccTree::print(const char* p_path, const char* p_format)$/;"	f	class:AccTree
+print_csv	acctree.cxx	/^void AccTree::print_csv(FILE* p_fp)$/;"	f	class:AccTree
+print_csv_node	acctree.cxx	/^static void print_csv_node(Node<Account>* p_root, FILE* p_fp)$/;"	f	file:
+print_xml	acctree.cxx	/^void AccTree::print_xml(FILE* p_fp)$/;"	f	class:AccTree
+print_xml_node	acctree.cxx	/^static void print_xml_node(Node<Account>* p_root, int p_level, FILE* p_fp)$/;"	f	file:
+process_transactions	acctree.cxx	/^void AccTree::process_transactions(const char* p_path)$/;"	f	class:AccTree
+process_transactions	main.cxx	/^static void process_transactions(Opt* p_opt, AccTree* p_tree)$/;"	f	file:
+search	acctree.cxx	/^Account* AccTree::search(const char* p_id)$/;"	f	class:AccTree
+search_node	acctree.cxx	/^static Account* search_node(Node<Account>* p_root, const char* p_id)$/;"	f	file:
+set_id	account.cxx	/^void Account::set_id(const char* p)$/;"	f	class:Account
+set_name	account.cxx	/^void Account::set_name(const char* p)$/;"	f	class:Account
+set_type	account.cxx	/^void Account::set_type(AccountType p)$/;"	f	class:Account
+set_type	account.cxx	/^void Account::set_type(const char* p)$/;"	f	class:Account
+set_value	account.cxx	/^void Account::set_value(const char* p)$/;"	f	class:Account
+set_value_by_type	acctree.cxx	/^set_value_by_type(Node<Account>* p_root, AccountType p_type, double p_value)$/;"	f	file:
+stack	acctree.cxx	/^	std::vector<Node<Account>* > stack;$/;"	m	file:
+start	acctree.cxx	/^static void start(void *data, const char *el, const char **attr)$/;"	f	file:
+substract_node	acctree.cxx	/^static void substract_node(Node<Account>* p_root, AccTree* p_other)$/;"	f	file:
+sumarize	acctree.cxx	/^void AccTree::sumarize()$/;"	f	class:AccTree
+tree	acctree.cxx	/^	AccTree* tree;$/;"	m	file:
+tree_load_aux_t	acctree.cxx	/^}tree_load_aux_t;$/;"	t	file:
+trimall	acctree.cxx	/^static char *trimall(char *str)$/;"	f	file:
+type	account.cxx	/^	const char* type;$/;"	m	file:
+usage	opt.cxx	/^void Opt::usage()$/;"	f	class:Opt
+validate	opt.cxx	/^void Opt::validate()$/;"	f	class:Opt

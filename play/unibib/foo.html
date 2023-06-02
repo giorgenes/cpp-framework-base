@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>U n i s i n o s :  Autenticação</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<SCRIPT LANGUAGE="javascript" SRC="estilo_autenticacao.js"></SCRIPT>
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<FORM ACTION="Autenticar" METHOD="POST">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		  <tr>
+			<td valign="top"> 
+			  <BLOCKQUOTE>
+				<table width="70%" border="0" cellpadding="0" cellspacing="0">
+						  <tr><td><br><strong>Autentica&ccedil;&atilde;o</strong><br><br></td></tr>
+  		  					  				  <tr>
+					<td><BR>		
+						<table border="1" cellspacing="0" cellpadding="0" bordercolor="#FF6702" width="80%" bgcolor="#FFF3EB">
+						  <tr>
+							<td>
+	<br><br>
+									  <table border="0" cellspacing="0" cellpadding="0" align="left">
+										<tr>
+										  <td class="texto"><div align="right">
+											  <b>   Número pessoal ou de matrícula:</b></div>
+										  </td>
+										  <td width="5px"></td>
+										  <td><input name="vinculo" AUTOCOMPLETE="OFF" VALUE="" type="TEXT" SIZE="10" maxlength="7"></td>
+										  <td class="texto"><small>  (Ex: 9018765)&nbsp;&nbsp;</small></td>
+										</tr>
+										<tr>
+										  <td class="texto" colspan="4"><br></td>
+										</tr> 
+										<tr>
+										  <td class="texto"><div align="right"><b>   Senha:</b></div>
+										  </td>
+										  <td width="5px">&nbsp;</td>
+										  <td>
+											<input name="senha" AUTOCOMPLETE="OFF" type="PASSWORD" value="" size="10" maxlength="6">
+										  </td>
+										  <td>
+										  </td>
+										</tr>
+										<tr>
+										  <td class="texto" colspan="4"> </td>
+										</tr>
+									  </table>
+							</td>
+						  </tr>
+						</table>
+					</td>
+				  </tr>
+				</table></BLOCKQUOTE></td></tr><TR><TD align="center"	>
+<table width="70%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+		  <tr>
+				<td aling="center"><input name="SUBMIT" type="SUBMIT"	value="    Enviar    "></td><td align="100%"><input type="submit" name="CANCEL" value="  Cancelar  "></td>
+		  </tr>
+		</table>
+			</td>
+		  </tr>
+		</table>
+		<INPUT TYPE="HIDDEN" NAME="destinoSucesso" VALUE="http%3A%2F%2Fbiblioteca.unisinos.br%2Fautenticador%2Fautenticador.php%3Fflag%3D">
+<INPUT TYPE="HIDDEN" NAME="destinoCancelamento" VALUE="http%3A%2F%2Fbibiloteca.unisinos.br%2Fbiblioteca_s%2Fphp%2Fsair.php">
+		<INPUT TYPE="HIDDEN" NAME="FORMULARIOAUTENTICACAO" VALUE="1">
+	  </form>
+	</body>
+  </html>

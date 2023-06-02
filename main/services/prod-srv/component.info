@@ -1,0 +1,3 @@
+NAME=prodsrv
+FLAGS="so"
+REQUIRE="rcpp utils"

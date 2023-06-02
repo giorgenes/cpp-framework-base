@@ -1,0 +1,9 @@
+<config>
+	<services>
+		<service>
+			<name>user</name>
+			<!-- <address>pipe:///home/giorgenes/work/bin/usersrvi</address> -->
+			<address>pipe://usersrvi</address>
+		</service>
+	</services>
+</config>

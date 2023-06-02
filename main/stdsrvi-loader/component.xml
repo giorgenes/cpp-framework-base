@@ -1,0 +1,6 @@
+<component>
+	<name>stdsrvi-loader</name>
+	<requires>
+		<require>stdsrvi</require>
+	</requires>
+</component>

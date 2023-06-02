@@ -1,0 +1,37 @@
+#ifndef __libany__bxtp__helper_h
+#define __libany__bxtp__helper_h
+
+#include <libany/bxtp/bxtp.h>
+
+namespace libany {
+	namespace bxtp {
+		class PathParser : public ::libany::stream::IOStream {
+			private:
+				int _tk;
+				char _path[2048];
+				int _st;
+
+				void gotodata();
+			protected:
+				::libany::bxtp::BxtpIOStream& _bxtp;
+			public:
+				PathParser(::libany::bxtp::BxtpIOStream &st) 
+					: _st(0), _bxtp(st)
+				{
+					*_path = 0;
+				};
+
+				virtual bool fetch_document();
+				bool match(const char*);
+				void match_end();
+				bool eos();
+				int read(void*, int);
+				int write(const void*, int);
+
+				~PathParser();
+
+		};
+	}
+}
+
+#endif

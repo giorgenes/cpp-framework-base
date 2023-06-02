@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="main.xsl"?>
+<courses>
+	<course>
+		<id>curso1</id>
+		<desc>curso de java I</desc>
+	</course>
+	<course>
+		<id>curso2</id>
+		<desc>curso de java II</desc>
+	</course>
+</courses>

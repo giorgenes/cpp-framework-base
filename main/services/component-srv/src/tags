@@ -1,0 +1,58 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.5.4	//
+Client	client.cxx	/^impl::Client::Client(impl::DB* db)$/;"	f	class:impl::Client
+ComponentSrv	srv.cxx	/^impl::ComponentSrv::ComponentSrv()$/;"	f	class:impl::ComponentSrv
+DB	db.cxx	/^impl::DB::DB()$/;"	f	class:impl::DB
+add_child	component.cxx	/^void Component::add_child(const char* rev, const char* child)$/;"	f	class:Component
+add_revision	component.cxx	/^void Component::add_revision(const char* rev)$/;"	f	class:Component
+begin	atomic.cxx	/^void AtomicTransaction::begin()$/;"	f	class:AtomicTransaction
+begin	base.cxx	/^void BTransaction::begin()$/;"	f	class:BTransaction
+begin	transaction.cxx	/^void Transaction::begin()$/;"	f	class:Transaction
+begin_exec	atomic.cxx	/^void AtomicTransaction::begin_exec(const char* service, const char* base)$/;"	f	class:AtomicTransaction
+begin_exec	base.cxx	/^void BTransaction::begin_exec(const char* service, const char*)$/;"	f	class:BTransaction
+begin_exec	transaction.cxx	/^void Transaction::begin_exec(const char* service, const char* base)$/;"	f	class:Transaction
+begin_transaction	db.cxx	/^void impl::DB::begin_transaction()$/;"	f	class:impl::DB
+commit	component.cxx	/^Component::commit($/;"	f	class:Component
+commit	db.cxx	/^void impl::DB::commit()$/;"	f	class:impl::DB
+commit	transaction.cxx	/^void Transaction::commit()$/;"	f	class:Transaction
+create	component.cxx	/^void Component::create()$/;"	f	class:Component
+data	atomic.cxx	/^void AtomicTransaction::data(::libany::bxtp::IDocument& doc)$/;"	f	class:AtomicTransaction
+data	base.cxx	/^void BTransaction::data(::libany::bxtp::IDocument& doc)$/;"	f	class:BTransaction
+data	transaction.cxx	/^void Transaction::data(::libany::bxtp::IDocument& doc)$/;"	f	class:Transaction
+exec	atomic.cxx	/^void AtomicTransaction::exec(::libany::bxtp::ODocument& doc)$/;"	f	class:AtomicTransaction
+exec	base.cxx	/^void BTransaction::exec(::libany::bxtp::ODocument&)$/;"	f	class:BTransaction
+exec	transaction.cxx	/^void Transaction::exec(::libany::bxtp::ODocument& doc)$/;"	f	class:Transaction
+exists	component.cxx	/^bool Component::exists()$/;"	f	class:Component
+get_file	base.cxx	/^BTransaction::get_file(::libany::bxtp::IDocument& doc, FILE* fp)$/;"	f	class:BTransaction
+get_files	base.cxx	/^void BTransaction::get_files(::libany::bxtp::IDocument& doc)$/;"	f	class:BTransaction
+get_next_revision	component.cxx	/^get_next_revision(const char* rev, char* next, int iter)$/;"	f	file:
+get_revision	base.cxx	/^void BTransaction::get_revision($/;"	f	class:BTransaction
+impl	srv.cxx	/^namespace impl {$/;"	n	file:
+key	atomic.cxx	/^void AtomicTransaction::key(::libany::bxtp::IDocument& doc)$/;"	f	class:AtomicTransaction
+key	base.cxx	/^void BTransaction::key(::libany::bxtp::IDocument& doc)$/;"	f	class:BTransaction
+key	transaction.cxx	/^void Transaction::key(::libany::bxtp::IDocument& doc)$/;"	f	class:Transaction
+new_atomic_transaction	client.cxx	/^::libany::rcpp::AtomicTransaction* impl::Client::new_atomic_transaction()$/;"	f	class:impl::Client
+new_client	srv.cxx	/^::libany::rcpp::ClientHandler* impl::ComponentSrv::new_client()$/;"	f	class:impl::ComponentSrv
+new_transaction	client.cxx	/^::libany::rcpp::Transaction* impl::Client::new_transaction()$/;"	f	class:impl::Client
+open_childs_file	component.cxx	/^FILE* Component::open_childs_file(const char* rev, const char* mode)$/;"	f	class:Component
+open_lst_file	component.cxx	/^FILE* Component::open_lst_file(const char* rev, const char* mode)$/;"	f	class:Component
+open_revisions_file	component.cxx	/^FILE* Component::open_revisions_file(const char* mode)$/;"	f	class:Component
+read_next_revision	component.cxx	/^void Component::read_next_revision(const char* rev, int* iter)$/;"	f	class:Component
+rollback	transaction.cxx	/^void Transaction::rollback()$/;"	f	class:Transaction
+send_childs	component.cxx	/^Component::send_childs(const char* rev, ::libany::bxtp::ODocument& doc)$/;"	f	class:Component
+send_file	component.cxx	/^Component::send_file($/;"	f	class:Component
+send_files	component.cxx	/^Component::send_files(const char* rev, ::libany::bxtp::ODocument& doc)$/;"	f	class:Component
+send_revisions	component.cxx	/^Component::send_revisions(::libany::bxtp::ODocument& doc)$/;"	f	class:Component
+write2file	base.cxx	/^write2file(const char* path, ::libany::stream::IStream& in)$/;"	f	file:
+write_components	componentdb.cxx	/^void ComponentDB::write_components(::libany::bxtp::ODocument& doc)$/;"	f	class:ComponentDB
+write_next_revision	component.cxx	/^void Component::write_next_revision(const char* rev, int iter)$/;"	f	class:Component
+~AtomicTransaction	atomic.cxx	/^AtomicTransaction::~AtomicTransaction()$/;"	f	class:AtomicTransaction
+~BTransaction	base.cxx	/^BTransaction::~BTransaction()$/;"	f	class:BTransaction
+~Client	client.cxx	/^impl::Client::~Client()$/;"	f	class:impl::Client
+~ComponentDB	componentdb.cxx	/^ComponentDB::~ComponentDB()$/;"	f	class:ComponentDB
+~DB	db.cxx	/^impl::DB::~DB()$/;"	f	class:impl::DB
+~Transaction	transaction.cxx	/^Transaction::~Transaction()$/;"	f	class:Transaction

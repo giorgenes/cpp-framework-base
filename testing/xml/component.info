@@ -1,0 +1,2 @@
+NAME=cgitest
+REQUIRE="cgi"

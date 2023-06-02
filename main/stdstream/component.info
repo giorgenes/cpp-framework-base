@@ -1,0 +1,3 @@
+NAME=stdstream
+REQUIRE="stream"
+FLAGS="so"

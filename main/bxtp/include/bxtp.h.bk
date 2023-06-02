@@ -1,0 +1,86 @@
+#ifndef __libany__bxtp__fd_h
+#define __libany__bxtp__fd_h
+
+#include <libany/stream/stream.h>
+#include <libany/stdstream/complete.h>
+#include <libany/stdstream/bufstream.h>
+
+#define LIBANY_BXTP_TOKEN_BEGIN 0
+#define LIBANY_BXTP_TOKEN_DATA  1
+#define LIBANY_BXTP_TOKEN_END   2
+
+namespace libany {
+	namespace bxtp {
+		class BxtpOStream : public ::libany::stream::OStream {
+			private:
+				::libany::stream::OStream& _ou;
+				int _wdepth;
+			protected:
+			public:
+				BxtpOStream(::libany::stream::IOStream &st) 
+					: _ou(st), _wdepth(0)
+				  {};
+
+				virtual ~BxtpOStream();
+
+				inline int wdepth() {
+					return _wdepth;
+				};
+
+				virtual int write(const void*, int);
+				void begin(const char*);
+				void end();
+				void write_tag(const char*, const char* val = 0, int len = 0);
+				bool complete_depth(int);
+		};
+
+		class BxtpIOStream : public BxtpOStream, public ::libany::stream::IOStream {
+			private:
+				::libany::stdstream::ICompleteStream _complete_stream;
+				::libany::stdstream::IBufStream _in;
+				
+				int _st;
+				int _depth;
+				int _cdepth;
+				char _tag[256+1];
+				
+				bool next_token_raw(int* token);
+			protected:
+				virtual void on_begin(const char*);
+				virtual void on_end();
+				virtual void on_data();
+				inline int depth() {
+					return _depth;
+				};
+			public:
+				BxtpIOStream(::libany::stream::IOStream &st) 
+					: BxtpOStream(st),
+					_complete_stream(st), 
+					_in(_complete_stream), 
+				  _st(0),
+				  _depth(0), _cdepth(0) {};
+
+				virtual ~BxtpIOStream();
+
+				virtual int read(void*, int);
+				virtual int write(const void*, int);
+				virtual bool eos();
+
+				virtual bool fetch_document();
+				bool next_token(int* token);
+
+				inline const char* tag() { return _tag; };
+		};
+
+		class Document {
+			private:
+			public:
+				virtual bool match(const char*);
+
+				Document(BxtpIOStream&);
+				Document(Document&);
+		};
+	}
+}
+
+#endif

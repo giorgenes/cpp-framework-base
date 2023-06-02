@@ -1,0 +1,15 @@
+# [[[get_component_names]]]
+
+get_component_names
+
+# [[[create_component]]]
+
+create %s
+
+# [[[add_revision]]]
+
+add_revision %s %s
+
+# [[[set_next_revision]]]
+
+set_next_revision %s %s %d

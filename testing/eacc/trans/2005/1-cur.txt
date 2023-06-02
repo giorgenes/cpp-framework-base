@@ -1,0 +1,3 @@
+1000 banco job
+78 food banco
+50 gas banco

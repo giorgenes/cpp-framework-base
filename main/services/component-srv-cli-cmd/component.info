@@ -1,0 +1,2 @@
+NAME=component-srv-cli-cmd
+REQUIRE="utils componentsrvcli stdstream stfactory iniparser"

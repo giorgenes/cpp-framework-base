@@ -1,0 +1,2 @@
+NAME=usersrvi
+REQUIRE="stdsrvi usersrv netstream"

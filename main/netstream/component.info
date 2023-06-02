@@ -1,0 +1,3 @@
+NAME=netstream
+REQUIRE="stream io"
+FLAGS="so"

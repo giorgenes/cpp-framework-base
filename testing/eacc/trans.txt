@@ -1,0 +1,7 @@
+1000 caixa init
+500 banco job
+
+50 food caixa
+100 gas caixa
+
+300 food banco

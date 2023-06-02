@@ -1,0 +1,27 @@
+#!/bin/bash
+
+TOPDIR=`pwd`
+
+for file in `find $TOPDIR -follow -name component.info`; do
+	unset NAME FLAGS REQUIRE
+	. $file
+	name=`dsvt-component-name $file`
+	path=`dirname $file`
+	topfile=$path/topdir.inc
+	echo creating $topfile
+	echo $TOPDIR > $topfile
+
+	mkdir -p $TOPDIR/include/libany
+	if [ -e $path/include ]; then
+		rm -f $TOPDIR/include/libany/$name
+		ln -sf $path/include $TOPDIR/include/libany/$name
+	fi
+
+	mkdir -p $TOPDIR/lib
+	if [ "$FLAGS" == "so" ]; then
+		ln -sf $path/src/libany$NAME.so $TOPDIR/lib/libany$NAME.so
+	fi
+
+done
+
+

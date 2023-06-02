@@ -1,0 +1,3 @@
+NAME=bxtp
+REQUIRE="stream stdstream"
+FLAGS="so"

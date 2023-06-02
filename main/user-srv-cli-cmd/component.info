@@ -1,0 +1,2 @@
+NAME=usr-srv-cli-cmd
+REQUIRE="utils usrsrvcli stdstream srvrouter stfactory"

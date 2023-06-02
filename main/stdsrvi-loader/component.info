@@ -1,0 +1,2 @@
+NAME=stdsrvi-loader
+REQUIRE="stdsrvi"

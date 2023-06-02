@@ -1,0 +1,3 @@
+NAME=componentsrv
+FLAGS="so"
+REQUIRE="rcpp utils dbsrvcli strfile iniparser"

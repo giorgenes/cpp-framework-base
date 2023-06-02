@@ -1,0 +1,3 @@
+NAME=dbsrv
+FLAGS="so"
+REQUIRE="rcpp utils table"

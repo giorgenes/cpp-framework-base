@@ -1,0 +1,3 @@
+NAME=postgresrv
+FLAGS="so"
+REQUIRE="rcpp utils table dbsrv"

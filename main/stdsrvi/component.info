@@ -1,0 +1,3 @@
+NAME=stdsrvi
+FLAGS="so"
+REQUIRE="ios stream"

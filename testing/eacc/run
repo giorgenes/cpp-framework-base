@@ -1,0 +1,14 @@
+#!/bin/bash
+
+EACC=../../main/easyacc-core/src/eacc
+
+$EACC -a accounts.xml trans.txt > real.xml
+
+$EACC -a accounts.xml prev.txt > prev.xml
+
+$EACC -a real.xml -s prev.xml
+
+
+rm -fr ./report
+export PATH=$PATH:../../main/easyacc-core/src
+../../main/easyacc-report/src/eacc-report.sh .

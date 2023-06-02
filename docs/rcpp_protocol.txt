@@ -1,0 +1,45 @@
+               Remote Command Post Protocol Version 1.0
+               ========================================
+
+Introduction
+============
+
+The RCPP is a RPC protocol for posting commands to a remote
+server, including support for transactions.
+All the actions are based on a request followed by a response.
+
+Protocol Version
+================
+
+The client must send the desired version to the server as the first
+command.
+If it is omited the first version is assumed: 1.0.
+
+Version Format
+==============
+
+/version <version>\r\n
+
+
+
+
+
+request {
+   function_name
+   function_params[]
+   content-type
+   content-transfer-type
+}
+
+response {
+}
+
+
+/version 1.0
+@test
+@lalala lolo
+foo
+/commit
+@lelele
+/rollback
+
